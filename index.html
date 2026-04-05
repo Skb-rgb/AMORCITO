@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Jessica Suárez | GALLERY_KINETIC</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode:"class",
+      theme:{ extend:{
+        colors:{ "primary":"#0000FF","secondary":"#FFFF00","tertiary":"#FF0000","on-surface":"#2f2e2e","background":"#f9f6f5","outline":"#787676","surface-variant":"#dfdcdc" },
+        borderRadius:{ "DEFAULT":"0px" },
+        fontFamily:{ "headline":["Space Grotesk"],"body":["Manrope"],"label":["Manrope"] }
+      }}
+    }
+  </script>
+  <style>
+    :root{ --blue:#0000FF; --yellow:#FFFF00; --red:#FF0000; --cream:#f9f6f5; --dark:#2f2e2e; }
+    *{ box-sizing:border-box; }
+    .material-symbols-outlined{ font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body{ background:var(--cream); color:var(--dark); font-family:'Manrope',sans-serif; cursor:none; }
+
+    /* cursor */
+    .cursor{ width:12px;height:12px;background:var(--blue);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:width .2s,height .2s,background .2s;transform:translate(-50%,-50%); }
+    .cursor.hovering{ width:40px;height:40px;background:var(--yellow);mix-blend-mode:multiply; }
+    .cursor-ring{ width:36px;height:36px;border:1.5px solid var(--blue);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%); }
+
+    /* mobile menu */
+    #mobile-menu{ transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1); }
+    #mobile-menu.open{ transform:translateX(0); }
+
+    /* helpers */
+    .text-impact{ letter-spacing:-0.04em;line-height:.85; }
+    .reveal{ opacity:0;transform:translateY(50px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal.visible{ opacity:1;transform:translateY(0); }
+
+    /* marquee */
+    @keyframes marquee{ to{ transform:translateX(-50%); } }
+    .marquee-inner{ display:inline-flex;white-space:nowrap;animation:marquee 18s linear infinite; }
+    .marquee-inner:hover{ animation-play-state:paused; }
+
+    /* project card line */
+    .project-line{ width:0;height:3px;background:var(--blue);transition:width .4s cubic-bezier(.16,1,.3,1); }
+    .group:hover .project-line{ width:100%; }
+
+    /* ═══════════════════════════════════════════════
+       INTRO — sticky scroll zoom + fade
+    ═══════════════════════════════════════════════ */
+    #intro-wrapper{
+      position:relative;
+      height:550vh; /* zona de scroll larga = animación suave */
+    }
+    #intro-stage{
+      position:sticky;
+      top:0;
+      width:100%;
+      height:100vh;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    #intro-bg{
+      position:absolute;inset:0;
+      background:#0000FF;
+      transition:background 0.55s cubic-bezier(.4,0,.2,1);
+      z-index:0;
+    }
+    /* cada palabra centrada y superpuesta */
+    .iword{
+      position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden; /* nunca desborda */
+      z-index:2;pointer-events:none;
+    }
+    .iword span{
+      font-family:'Space Grotesk',sans-serif;
+      font-weight:900;
+      letter-spacing:-0.04em;
+      line-height:0.88;
+      text-transform:uppercase;
+      text-align:center;
+      display:block;
+      will-change:transform,opacity;
+      /* tamaño base — JS escala desde aquí */
+      font-size:clamp(28px,7.5vw,90px);
+      max-width:88vw;
+      padding:0 5vw;
+      word-break:break-word;
+    }
+    /* colores por slide */
+    #iw-0 span{ color:#fff; }
+    #iw-1 span{ color:#0000FF; }
+    #iw-2 span{ color:#fff; }
+    #iw-3 span{ color:#2f2e2e;font-size:clamp(18px,3.2vw,46px);line-height:1.15; }
+    #iw-3 span em{ color:#0000FF;font-style:normal; }
+
+    /* chrome */
+    #intro-tag{
+      position:absolute;bottom:28px;left:32px;z-index:10;
+      font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;
+      letter-spacing:.25em;text-transform:uppercase;
+      color:rgba(255,255,255,.35);pointer-events:none;transition:color .5s;
+    }
+    #intro-hint{
+      position:absolute;bottom:28px;right:32px;z-index:10;
+      font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;
+      letter-spacing:.2em;text-transform:uppercase;
+      color:rgba(255,255,255,.35);pointer-events:none;transition:opacity .5s,color .5s;
+    }
+    #intro-dots{
+      position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+      display:flex;gap:7px;z-index:10;
+    }
+    .idot{
+      width:6px;height:6px;border-radius:50%;
+      background:rgba(255,255,255,.3);
+      transition:background .3s,transform .3s;
+    }
+    .idot.on{ background:#fff;transform:scale(1.6); }
+    #intro-cta{
+      position:absolute;bottom:68px;left:50%;transform:translateX(-50%);
+      background:#0000FF;color:#fff;
+      font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
+      letter-spacing:.2em;text-transform:uppercase;
+      padding:13px 30px;border:none;cursor:pointer;z-index:20;
+      opacity:0;pointer-events:none;
+      transition:opacity .5s,background .2s;white-space:nowrap;
+    }
+    #intro-cta.visible{ opacity:1;pointer-events:auto; }
+    #intro-cta:hover{ background:#2f2e2e; }
+
+    /* entrada del primer texto — opacity inicial baja, JS toma el control */
+    #iw-0 span{ opacity:0; }
+  </style>
+</head>
+<body class="selection:bg-primary selection:text-white">
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- Mobile menu -->
+  <div class="fixed inset-0 z-[200] bg-primary flex flex-col justify-between p-10" id="mobile-menu">
+    <div class="flex justify-between items-center">
+      <span class="text-white font-headline font-black text-xl tracking-tighter">GALLERY_KINETIC</span>
+      <button id="close-menu" class="text-white"><span class="material-symbols-outlined text-3xl">close</span></button>
+    </div>
+    <nav class="flex flex-col gap-8">
+      <a href="#home"    class="mobile-link font-headline font-black text-6xl text-white text-impact uppercase hover:text-secondary transition-colors">HOME</a>
+      <a href="#works"   class="mobile-link font-headline font-black text-6xl text-white text-impact uppercase hover:text-secondary transition-colors">WORK</a>
+      <a href="#about"   class="mobile-link font-headline font-black text-6xl text-white text-impact uppercase hover:text-secondary transition-colors">ABOUT</a>
+      <a href="#contact" class="mobile-link font-headline font-black text-6xl text-white text-impact uppercase hover:text-secondary transition-colors">CONTACT</a>
+    </nav>
+    <p class="font-label text-xs tracking-widest text-white/30 uppercase">© 2024 JESSICA SUÁREZ</p>
+  </div>
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-[100] bg-[#f9f6f5]/85 backdrop-blur-md flex justify-between items-center px-8 py-5 border-b border-black/5">
+    <a href="#home" class="text-xl font-black tracking-tighter text-primary uppercase font-headline">GALLERY_KINETIC</a>
+    <div class="hidden md:flex gap-10 items-center">
+      <a class="font-headline uppercase tracking-tight font-bold text-sm text-primary hover:opacity-50 transition-opacity" href="#home">HOME</a>
+      <a class="font-headline uppercase tracking-tight font-bold text-sm text-primary hover:opacity-50 transition-opacity" href="#works">WORK</a>
+      <a class="font-headline uppercase tracking-tight font-bold text-sm text-primary hover:opacity-50 transition-opacity" href="#about">ABOUT</a>
+      <a class="font-headline uppercase tracking-tight font-bold text-sm text-primary hover:opacity-50 transition-opacity" href="#contact">CONTACT</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="#contact" class="hidden md:inline-block bg-primary text-white font-headline uppercase tracking-tight font-bold text-xs px-5 py-2.5 hover:bg-black transition-colors duration-300">START_JOURNEY</a>
+      <button id="open-menu" class="md:hidden text-primary"><span class="material-symbols-outlined text-3xl">menu</span></button>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ═══════════ INTRO ═══════════ -->
+    <div id="intro-wrapper">
+      <div id="intro-stage">
+        <div id="intro-bg"></div>
+
+        <div class="iword" id="iw-0"><span>WHY BLUE?</span></div>
+        <div class="iword" id="iw-1"><span>IS IT REMARKABLE?</span></div>
+        <div class="iword" id="iw-2"><span>CONNECT OR INTERRUPT</span></div>
+        <div class="iword" id="iw-3">
+          <span>Las mejores ideas no nacen de crear más.<br/><em>Nacen de hacer las preguntas correctas.</em></span>
+        </div>
+
+        <span id="intro-tag">JESSICA SUÁREZ / PORTFOLIO 2024</span>
+        <span id="intro-hint">↓ SCROLL</span>
+        <div id="intro-dots">
+          <span class="idot on"></span><span class="idot"></span>
+          <span class="idot"></span><span class="idot"></span>
+        </div>
+        <button id="intro-cta">↓ VER PORTAFOLIO</button>
+      </div>
+    </div>
+
+    <!-- ═══════════ HOME ═══════════ -->
+    <section class="min-h-screen bg-white py-32 px-8 md:px-16 flex flex-col md:flex-row gap-16 items-start relative z-[50]" id="home">
+      <div class="w-full md:w-1/2 reveal">
+        <h2 class="font-headline text-primary text-5xl md:text-[7vw] font-black uppercase leading-[0.85] tracking-tighter mb-8">
+          DIRECCIÓN.<br/>INTENCIÓN.<br/>IMPACTO.
+        </h2>
+        <div class="w-20 h-3 bg-tertiary mt-8"></div>
+      </div>
+      <div class="w-full md:w-5/12 flex flex-col gap-8 pt-4 md:pt-20 reveal" style="transition-delay:.15s">
+        <p class="font-body text-xl md:text-2xl font-medium leading-relaxed text-on-surface">
+          Las buenas conversaciones tienen ritmo. El marketing no es solo presencia — es el ritmo del engagement. Creo en el movimiento estratégico, donde cada decisión es un beat calculado.
+        </p>
+        <p class="font-body text-base text-on-surface/60 leading-relaxed">
+          Mi enfoque empieza decodificando el <em>'por qué'</em> antes de ejecutar el <em>'qué'</em>. Trato el marketing como un arte que define la dirección del mercado, no que simplemente llena espacios.
+        </p>
+        <a href="#works" class="inline-flex items-center gap-2 font-headline font-bold text-primary text-sm uppercase tracking-widest border-b-2 border-primary pb-1 w-fit hover:gap-4 transition-all duration-300">
+          Ver proyectos <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="bg-primary py-5 overflow-hidden z-[50] relative">
+      <div class="marquee-inner">
+        <span class="font-headline font-black text-white text-sm uppercase tracking-[0.2em] px-8">ESTRATEGIA CREATIVA</span>
+        <span class="font-headline font-black text-secondary text-sm uppercase tracking-[0.2em] px-8">✦</span>
+        <span class="font-headline font-black text-white text-sm uppercase tracking-[0.2em] px-8">UX DESIGN</span>
+        <span class="font-headline font-black text-secondary text-sm uppercase tracking-[0.2em] px-8">✦</span>
+        <span class="font-headline font-black text-white text-sm uppercase tracking-[0.2em] px-8">DIRECCIÓN CREATIVA</span>
+        <span class="font-headline font-black text-secondary text-sm uppercase tracking-[0.2em] px-8">✦</span>
+        <span class="font-headline font-black text-white text-sm uppercase tracking-[0.2em] px-8">STORYTELLING</span>
+        <span class="font-headline font-black text-secondary text-sm uppercase tracking-[0.2em] px-8">✦</span>
+        <span class="font-headline font-black text-white text-sm uppercase tracking-[0.2em] px-8">BRAND IDENTITY</span>
+        <span class="font-headline font-black text-secondary text-sm uppercase tracking-[0.2em] px-8">✦</span>
+        <span class="font-headline font-black text-white text-sm uppercase tracking-[0.2em] px-8">ESTRATEGIA CREATIVA</span>
+        <span class="font-headline font-black text-secondary text-sm uppercase tracking-[0.2em] px-8">✦</span>
+        <span class="font-headline font-black text-white text-sm uppercase tracking-[0.2em] px-8">UX DESIGN</span>
+        <span class="font-headline font-black text-secondary text-sm uppercase tracking-[0.2em] px-8">✦</span>
+        <span class="font-headline font-black text-white text-sm uppercase tracking-[0.2em] px-8">DIRECCIÓN CREATIVA</span>
+        <span class="font-headline font-black text-secondary text-sm uppercase tracking-[0.2em] px-8">✦</span>
+        <span class="font-headline font-black text-white text-sm uppercase tracking-[0.2em] px-8">STORYTELLING</span>
+        <span class="font-headline font-black text-secondary text-sm uppercase tracking-[0.2em] px-8">✦</span>
+        <span class="font-headline font-black text-white text-sm uppercase tracking-[0.2em] px-8">BRAND IDENTITY</span>
+        <span class="font-headline font-black text-secondary text-sm uppercase tracking-[0.2em] px-8">✦</span>
+      </div>
+    </div>
+
+    <!-- ═══════════ WORKS ═══════════ -->
+    <section class="bg-[#f9f6f5] py-32 px-8 md:px-16 relative z-[50]" id="works">
+      <div class="flex flex-col md:flex-row justify-between items-baseline mb-20 reveal">
+        <h2 class="font-headline text-on-surface text-5xl md:text-6xl font-black uppercase tracking-tighter">Selected Works</h2>
+        <span class="font-label text-xs uppercase tracking-[0.2em] text-outline mt-2 md:mt-0">GALLERY_KINETIC / 01 — 03</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
+
+        <a class="md:col-span-7 group cursor-none block reveal" href="rcn.html">
+          <div class="aspect-[16/9] bg-surface-variant overflow-hidden relative">
+            <img alt="RCN Total" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" src="imagenes/rcn-cover.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
+            <div class="absolute inset-0 bg-[#000183] hidden items-center justify-center flex-col gap-3">
+              <span class="material-symbols-outlined text-white/30 text-5xl">image</span>
+              <p class="font-headline text-white/30 text-xs uppercase tracking-widest">rcn-cover.jpg</p>
+            </div>
+            <div class="absolute inset-0 bg-primary/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </div>
+          <div class="mt-5 flex justify-between items-start">
+            <div>
+              <p class="font-label text-[10px] uppercase tracking-widest text-primary mb-1">Digital Strategy / UI</p>
+              <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface uppercase group-hover:text-primary transition-colors duration-300">RCN Total</h3>
+              <div class="project-line mt-2"></div>
+            </div>
+            <span class="material-symbols-outlined text-primary text-2xl -rotate-45 group-hover:rotate-0 transition-transform duration-300 mt-1">arrow_forward</span>
+          </div>
+        </a>
+
+        <a class="md:col-span-5 md:mt-28 group cursor-none block reveal" href="hyatt.html" style="transition-delay:.1s">
+          <div class="aspect-[4/5] bg-surface-variant overflow-hidden relative">
+            <img alt="Hyatt Storytelling" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" src="imagenes/hyatt-cover.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
+            <div class="absolute inset-0 bg-[#3a0000] hidden items-center justify-center flex-col gap-3">
+              <span class="material-symbols-outlined text-white/30 text-5xl">image</span>
+              <p class="font-headline text-white/30 text-xs uppercase tracking-widest">hyatt-cover.jpg</p>
+            </div>
+            <div class="absolute inset-0 bg-tertiary/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </div>
+          <div class="mt-5 flex justify-between items-start">
+            <div>
+              <p class="font-label text-[10px] uppercase tracking-widest text-tertiary mb-1">Creative Direction</p>
+              <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface uppercase group-hover:text-tertiary transition-colors duration-300">Hyatt Storytelling</h3>
+              <div class="project-line mt-2" style="background:var(--red)"></div>
+            </div>
+            <span class="material-symbols-outlined text-tertiary text-2xl -rotate-45 group-hover:rotate-0 transition-transform duration-300 mt-1">arrow_forward</span>
+          </div>
+        </a>
+
+        <a class="md:col-span-8 group cursor-none block reveal" href="roku.html" style="transition-delay:.2s">
+          <div class="aspect-[21/9] bg-surface-variant overflow-hidden relative">
+            <img alt="Roku Ads Manager" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" src="imagenes/roku-cover.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
+            <div class="absolute inset-0 bg-[#662d91] hidden items-center justify-center flex-col gap-3">
+              <span class="material-symbols-outlined text-white/30 text-5xl">image</span>
+              <p class="font-headline text-white/30 text-xs uppercase tracking-widest">roku-cover.jpg</p>
+            </div>
+            <div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </div>
+          <div class="mt-5 flex justify-between items-start">
+            <div>
+              <p class="font-label text-[10px] uppercase tracking-widest text-primary mb-1">Platform Design / UX</p>
+              <h3 class="font-headline text-2xl md:text-3xl font-bold text-on-surface uppercase group-hover:text-primary transition-colors duration-300">Roku Ads Manager</h3>
+              <div class="project-line mt-2"></div>
+            </div>
+            <span class="material-symbols-outlined text-primary text-2xl -rotate-45 group-hover:rotate-0 transition-transform duration-300 mt-1">arrow_forward</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ═══════════ ABOUT ═══════════ -->
+    <section class="bg-white py-32 md:py-48 px-8 md:px-16 overflow-hidden relative z-[50]" id="about">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 md:gap-24">
+        <div class="w-full md:w-2/5 relative reveal">
+          <div class="aspect-[3/4] bg-[#dfdcdc] relative z-10 overflow-hidden">
+            <img alt="Jessica Suárez" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="imagenes/jessica-foto.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
+            <div class="absolute inset-0 bg-[#dfdcdc] hidden items-center justify-center flex-col gap-3">
+              <span class="material-symbols-outlined text-black/20 text-6xl">person</span>
+              <p class="font-headline text-black/20 text-xs uppercase tracking-widest">jessica-foto.jpg</p>
+            </div>
+          </div>
+          <div class="absolute -bottom-8 -right-8 w-full h-full border-[10px] border-primary/15 -z-0 pointer-events-none"></div>
+        </div>
+        <div class="w-full md:w-3/5 reveal" style="transition-delay:.15s">
+          <div class="mb-10">
+            <span class="font-headline text-tertiary text-sm font-bold uppercase tracking-widest block mb-4">THE PHILOSOPHY</span>
+            <h2 class="font-headline text-on-surface text-4xl md:text-[5vw] font-black uppercase leading-[0.9] tracking-tighter">
+              "No pienso en piezas.<br/>Pienso en el juego."
+            </h2>
+          </div>
+          <div class="flex flex-col gap-10 border-l-4 border-primary pl-8 md:pl-10">
+            <p class="font-body text-lg md:text-xl text-on-surface/70 max-w-lg leading-relaxed">
+              Todo empieza con una pregunta: ¿por qué? Jessica Suárez es una mente estratégica en la intersección del marketing y la construcción arquitectónica de marca. Su trabajo ha sido reconocido globalmente por su enfoque inquebrantable en el propósito.
+            </p>
+            <div class="bg-[#f9f6f5] p-6 md:p-8 border border-primary/10">
+              <p class="font-label text-xs tracking-widest text-outline mb-2">RECOGNITION</p>
+              <h4 class="font-headline text-xl md:text-2xl font-bold text-primary uppercase mb-1">Premio Liberu 2023</h4>
+              <p class="font-body text-sm text-on-surface">Latin American Winner para Nestlé — Outstanding Achievement in Narrative Strategy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ CONTACT ═══════════ -->
+    <section class="bg-primary py-32 md:py-48 px-8 flex flex-col items-center justify-center text-center relative z-[50]" id="contact">
+      <h4 class="font-headline text-secondary text-lg font-bold uppercase tracking-[0.3em] mb-10 reveal">HABLEMOS</h4>
+      <div class="max-w-4xl reveal" style="transition-delay:.1s">
+        <h2 class="font-headline text-white text-[10vw] md:text-[7vw] font-black uppercase text-impact mb-6">
+          Todo empieza con un por qué.
+        </h2>
+        <p class="font-body text-white/60 text-lg mb-12 max-w-xl mx-auto leading-relaxed">
+          Si el tuyo está claro, podemos construir algo juntos.<br/>
+          <!-- ✉️ CAMBIA EL EMAIL AQUÍ -->
+          <a href="mailto:hello@jessicasuarez.com" class="font-bold text-white hover:text-secondary transition-colors">hello@jessicasuarez.com</a>
+        </p>
+        <a href="mailto:hello@jessicasuarez.com" class="inline-block bg-secondary text-primary font-headline text-xl md:text-2xl font-black uppercase px-10 md:px-14 py-5 md:py-6 transition-all hover:scale-105 hover:bg-white active:scale-95 duration-300">
+          START A PROJECT
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full min-h-[40vh] flex flex-col justify-end p-8 md:p-12 bg-black text-white relative z-[50]">
+    <div class="w-full flex flex-col gap-10">
+      <div class="flex flex-col gap-1">
+        <span class="font-headline text-3xl md:text-4xl font-black uppercase text-white">GALLERY_KINETIC</span>
+        <p class="font-headline text-base font-medium text-white/40">NO BORDERS. NO LIMITS.</p>
+      </div>
+      <div class="flex flex-wrap gap-6 md:gap-10">
+        <!-- 🔗 CAMBIA LOS LINKS AQUÍ -->
+        <a href="https://instagram.com/TU_USUARIO" target="_blank" class="font-headline text-2xl md:text-3xl font-black uppercase text-white/30 hover:text-white hover:italic transition-all duration-300">INSTAGRAM</a>
+        <a href="https://linkedin.com/in/TU_USUARIO" target="_blank" class="font-headline text-2xl md:text-3xl font-black uppercase text-white/30 hover:text-white hover:italic transition-all duration-300">LINKEDIN</a>
+      </div>
+      <div class="pt-10 border-t border-white/10 w-full flex flex-col md:flex-row justify-between items-end gap-4">
+        <p class="font-headline text-xs font-bold uppercase tracking-widest text-white/20">©2024 THE KINETIC GALLERY. JESSICA SUÁREZ PORTFOLIO.</p>
+        <div class="flex gap-3">
+          <span class="material-symbols-outlined text-5xl opacity-10">motion_sensor_active</span>
+          <span class="material-symbols-outlined text-5xl opacity-10">view_in_ar</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ── cursor ──────────────────────────────────────────────────────
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  (function raf(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf);})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cursor.classList.add('hovering'));
+    el.addEventListener('mouseleave',()=>cursor.classList.remove('hovering'));
+  });
+
+  // ── mobile menu ─────────────────────────────────────────────────
+  const mMenu=document.getElementById('mobile-menu');
+  document.getElementById('open-menu').addEventListener('click',()=>mMenu.classList.add('open'));
+  document.getElementById('close-menu').addEventListener('click',()=>mMenu.classList.remove('open'));
+  document.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',()=>mMenu.classList.remove('open')));
+
+  // ── INTRO scroll zoom-fade ──────────────────────────────────────
+  (function(){
+    const wrapper = document.getElementById('intro-wrapper');
+    const words   = ['iw-0','iw-1','iw-2','iw-3'].map(id=>document.getElementById(id));
+    const bg      = document.getElementById('intro-bg');
+    const dots    = document.querySelectorAll('.idot');
+    const hint    = document.getElementById('intro-hint');
+    const tag     = document.getElementById('intro-tag');
+    const cta     = document.getElementById('intro-cta');
+    const COLORS  = ['#0000FF','#FFFF00','#FF0000','#f9f6f5'];
+    const N       = words.length;
+    const S0      = 0.55;   // escala inicial (pequeño)
+    const SPEAK   = 1.55;   // escala máxima antes del fade
+
+    function clamp(v,a,b){return Math.min(b,Math.max(a,v));}
+    function ease(t){t=clamp(t,0,1);return t<.5?2*t*t:-1+(4-2*t)*t;}
+
+    function getProgress(){
+      var wrapTop = wrapper.offsetTop;
+      var wH      = wrapper.offsetHeight;
+      var vh      = window.innerHeight;
+      return Math.min(1, Math.max(0, (window.scrollY - wrapTop) / (wH - vh)));
+    }
+
+    function update(){
+      var prog = getProgress();
+      var seg  = 1/N;
+
+      words.forEach(function(el,i){
+        var span  = el.querySelector('span');
+        var local = Math.min(1, Math.max(0, (prog - i*seg)/seg));
+        var scale, opacity;
+        if(prog < i*seg){
+          scale=S0; opacity=0;
+        } else if(local < 0.55){
+          var t=ease(local/0.55);
+          scale  = S0+(SPEAK-S0)*t;
+          opacity= local<0.08 ? local/0.08 : 1;
+        } else {
+          var t=ease((local-0.55)/0.45);
+          scale  = SPEAK+(SPEAK*0.55)*t;
+          opacity= 1-t;
+        }
+        span.style.transform='scale('+scale.toFixed(3)+')';
+        span.style.opacity=opacity.toFixed(3);
+      });
+
+      var idx = Math.min(N-1, Math.max(0, Math.floor(prog*N)));
+      var loc = Math.min(1, Math.max(0, (prog - idx*seg)/seg));
+      bg.style.background=(loc>0.5&&idx<N-1)?COLORS[idx+1]:COLORS[idx];
+
+      var active=Math.min(N-1,Math.max(0,Math.round(prog*(N-1))));
+      var darkBg=(idx===1&&loc<0.5)||(idx===3);
+      dots.forEach(function(d,i){
+        d.classList.toggle('on',i===active);
+        d.style.background=d.classList.contains('on')
+          ?(darkBg?'#0000FF':'#fff')
+          :(darkBg?'rgba(0,0,0,.25)':'rgba(255,255,255,.3)');
+      });
+      var uiCol=darkBg?'rgba(0,0,0,.3)':'rgba(255,255,255,.35)';
+      hint.style.color=uiCol; tag.style.color=uiCol;
+      if(prog>0.87){ cta.classList.add('visible'); hint.style.opacity='0'; }
+      else{ cta.classList.remove('visible'); hint.style.opacity='1'; }
+    }
+
+    window.addEventListener('scroll',update,{passive:true});
+    window.addEventListener('resize',update);
+
+    function init(){
+      var s=words[0].querySelector('span');
+      s.style.transition='opacity .7s ease, transform .7s ease';
+      s.style.opacity='1';
+      s.style.transform='scale('+S0+')';
+      setTimeout(function(){ s.style.transition=''; update(); },750);
+    }
+    requestAnimationFrame(function(){ requestAnimationFrame(init); });
+
+    cta.addEventListener('click',()=>{
+      document.getElementById('home').scrollIntoView({behavior:'smooth'});
+    });
+  })();
+
+  // ── scroll reveal ───────────────────────────────────────────────
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+
+</body>
+</html>
