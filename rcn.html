@@ -13,9 +13,9 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#0000FF", "secondary": "#FFFF00", "tertiary": "#FF0000",
-            "on-surface": "#2f2e2e", "background": "#f9f6f5",
-            "outline": "#787676", "surface-variant": "#dfdcdc",
+            "primary": "#FA5E75", "secondary": "#FD8798", "tertiary": "#FFE3F6",
+            "on-surface": "#4D4647", "background": "#FFF8FA",
+            "outline": "#4D4647", "surface-variant": "#FFE3F6",
             "on-surface-variant": "#5c5b5b",
           },
           borderRadius: { "DEFAULT": "0px" },
@@ -26,7 +26,8 @@
   </script>
   <style>
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    body { font-family: 'Manrope', sans-serif; background: #f9f6f5; color: #2f2e2e; }
+    body { font-family: 'Manrope', sans-serif; background: #FFF8FA; color: #4D4647; cursor:default; }
+        a, button { cursor:pointer; }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -46,7 +47,7 @@
   <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md flex justify-between items-center px-8 md:px-12 py-5 border-b border-black/5">
     <a href="index.html" class="flex items-center gap-3 text-primary font-headline font-black text-xl uppercase tracking-tighter hover:opacity-70 transition-opacity">
       <span class="material-symbols-outlined text-xl">arrow_back</span>
-      GALLERY_KINETIC
+      JESSICA SUÁREZ
     </a>
     <div class="hidden md:flex gap-10 font-headline uppercase tracking-tight font-bold text-sm text-primary">
       <a href="hyatt.html" class="hover:opacity-50 transition-opacity">Hyatt</a>
@@ -58,21 +59,21 @@
   <!-- Side dots -->
   <div class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-5 items-center">
     <a href="#hero"      class="w-2 h-2 rounded-full bg-primary scale-150 transition-transform"></a>
-    <a href="#contexto"  class="w-2 h-2 rounded-full bg-stone-300 hover:scale-125 transition-transform"></a>
-    <a href="#direccion" class="w-2 h-2 rounded-full bg-stone-300 hover:scale-125 transition-transform"></a>
-    <a href="#video"     class="w-2 h-2 rounded-full bg-stone-300 hover:scale-125 transition-transform"></a>
-    <a href="#resultado" class="w-2 h-2 rounded-full bg-stone-300 hover:scale-125 transition-transform"></a>
+    <a href="#contexto"  class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
+    <a href="#direccion" class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
+    <a href="#video"     class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
+    <a href="#resultado" class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
   </div>
 
   <main class="pt-24">
 
     <!-- ── HERO ─────────────────────────────────────────────────── -->
-    <section class="min-h-[80vh] flex flex-col justify-center px-8 md:px-16 bg-[#000183] text-white py-24" id="hero">
+    <section class="min-h-[80vh] flex flex-col justify-center px-8 md:px-16 bg-[#FA5E75] text-white py-24" id="hero">
       <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
         <div class="md:col-span-8">
-          <p class="font-label text-xs font-medium uppercase tracking-[0.2em] text-[#9097ff] mb-5 fade-up delay-1">CASE STUDY / 01</p>
+          <p class="font-label text-xs font-medium uppercase tracking-[0.2em] text-[#9B8082] mb-5 fade-up delay-1">CASE STUDY / 01</p>
           <h1 class="font-headline text-[13vw] md:text-[8rem] font-black leading-[0.85] tracking-tighter mb-10 fade-up delay-2">
-            UX (RCN <span class="text-[#9097ff]">TOTAL</span>)
+            UX (RCN <span class="text-[#9B8082]">TOTAL</span>)
           </h1>
         </div>
         <div class="md:col-span-4 pb-2 fade-up delay-3">
@@ -95,16 +96,16 @@
           src="imagenes/rcn-hero.jpg"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
-        <div class="absolute inset-0 bg-[#000183] hidden items-center justify-center flex-col gap-3">
+        <div class="absolute inset-0 bg-[#FA5E75] hidden items-center justify-center flex-col gap-3">
           <span class="material-symbols-outlined text-white/20 text-6xl">tv</span>
           <p class="font-headline text-white/20 text-sm uppercase tracking-widest">rcn-hero.jpg</p>
         </div>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#000183]/70 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#FA5E75]/70 to-transparent pointer-events-none"></div>
       </div>
     </section>
 
     <!-- ── CONTEXTO ──────────────────────────────────────────────── -->
-    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#f9f6f5]" id="contexto">
+    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FFF8FA]" id="contexto">
       <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
         <div class="md:col-span-5 reveal">
           <h2 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-on-surface">EL<br/>CONTEXTO</h2>
@@ -120,7 +121,7 @@
             src="imagenes/rcn-contexto1.jpg"
             ════════════════════════════════════════════
             -->
-            <div class="h-52 md:h-64 bg-[#dfdcdc] overflow-hidden">
+            <div class="h-52 md:h-64 bg-[#FFE3F6] overflow-hidden">
               <img
                 alt="Contexto RCN 1"
                 class="w-full h-full object-cover grayscale"
@@ -152,7 +153,7 @@
     </section>
 
     <!-- ── VIDEO ─────────────────────────────────────────────────── -->
-    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#2f2e2e] text-white" id="video">
+    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FA5E75] text-white" id="video">
       <div class="max-w-7xl mx-auto reveal">
         <div class="flex flex-col md:flex-row justify-between items-baseline mb-10 border-b border-white/10 pb-5">
           <h3 class="font-headline text-2xl md:text-3xl font-bold tracking-tighter uppercase">RCN Total en tres palabras</h3>
@@ -183,7 +184,7 @@
         -->
 
         <!-- Placeholder -->
-        <div class="relative aspect-video w-full bg-stone-800 flex items-center justify-center overflow-hidden group">
+        <div class="relative aspect-video w-full bg-[#4D4647] flex items-center justify-center overflow-hidden group">
           <img
             alt="Video thumbnail RCN"
             class="absolute inset-0 w-full h-full object-cover opacity-50"
@@ -204,7 +205,7 @@
     </section>
 
     <!-- ── RESULTADOS ────────────────────────────────────────────── -->
-    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#f3f0ef]" id="resultado">
+    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FFF1F5]" id="resultado">
       <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 reveal">
         <div class="flex flex-col gap-3">
           <span class="font-headline text-sm font-bold text-tertiary">01 / ESTRATEGIA</span>

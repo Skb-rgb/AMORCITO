@@ -3,32 +3,26 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Jessica Suárez | Jessica Suárez</title>
+  <title>Jessica Suárez</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
- <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
   <script>
     tailwind.config = {
       darkMode:"class",
       theme:{ extend:{
-        colors:{ "primary":"#0000FF","secondary":"#FFFF00","tertiary":"#FF0000","on-surface":"#2f2e2e","background":"#f9f6f5","outline":"#787676","surface-variant":"#dfdcdc" },
+        colors:{ "primary":"#FA5E75","secondary":"#FD8798","tertiary":"#FFE3F6","on-surface":"#4D4647","background":"#FFF8FA","outline":"#4D4647","surface-variant":"#FFE3F6" },
         borderRadius:{ "DEFAULT":"0px" },
-     fontFamily: {"headline": ["Playfair Display", "serif"],
-  "body": ["DM Sans", "sans-serif"],
-  "label": ["DM Sans", "sans-serif"]
+        fontFamily:{ "headline":["Space Grotesk"],"body":["Manrope"],"label":["Manrope"] }
       }}
     }
   </script>
   <style>
-    :root{ --blue:#0000FF; --yellow:#FFFF00; --red:#FF0000; --cream:#f9f6f5; --dark:#2f2e2e; }
+    :root{ --blue:#FA5E75; --yellow:#FD8798; --red:#FFE3F6; --cream:#FFF8FA; --dark:#4D4647; }
     *{ box-sizing:border-box; }
+    a, button{ cursor:pointer; }
     .material-symbols-outlined{ font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
-    body{ background:var(--cream); color:var(--dark); font-family:'Manrope',sans-serif; cursor:none; }
-
-    /* cursor */
-    .cursor{ width:12px;height:12px;background:var(--blue);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:width .2s,height .2s,background .2s;transform:translate(-50%,-50%); }
-    .cursor.hovering{ width:40px;height:40px;background:var(--yellow);mix-blend-mode:multiply; }
-    .cursor-ring{ width:36px;height:36px;border:1.5px solid var(--blue);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%); }
+    body{ background:var(--cream); color:var(--dark); font-family:'Manrope',sans-serif; }
 
     /* mobile menu */
     #mobile-menu{ transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1); }
@@ -67,7 +61,7 @@
     }
     #intro-bg{
       position:absolute;inset:0;
-      background:#0000FF;
+      background: #3A9AFF;
       transition:background 0.55s cubic-bezier(.4,0,.2,1);
       z-index:0;
     }
@@ -95,23 +89,23 @@
     }
     /* colores por slide */
     #iw-0 span{ color:#fff; }
-    #iw-1 span{ color:#0000FF; }
+    #iw-1 span{ color:#2f2e2e; }
     #iw-2 span{ color:#fff; }
-    #iw-3 span{ color:#2f2e2e;font-size:clamp(18px,3.2vw,46px);line-height:1.15; }
-    #iw-3 span em{ color:#0000FF;font-style:normal; }
+    #iw-3 span{ color:#4D4647;font-size:clamp(18px,3.2vw,46px);line-height:1.15; }
+    #iw-3 span em{ color:#4D4647;font-style:normal; }
 
     /* chrome */
     #intro-tag{
       position:absolute;bottom:28px;left:32px;z-index:10;
       font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;
       letter-spacing:.25em;text-transform:uppercase;
-      color:rgba(255,255,255,.35);pointer-events:none;transition:color .5s;
+      color:rgba(253,135,152,.5);pointer-events:none;transition:color .5s;
     }
     #intro-hint{
       position:absolute;bottom:28px;right:32px;z-index:10;
       font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;
       letter-spacing:.2em;text-transform:uppercase;
-      color:rgba(255,255,255,.35);pointer-events:none;transition:opacity .5s,color .5s;
+      color:rgba(253,135,152,.5);pointer-events:none;transition:opacity .5s,color .5s;
     }
     #intro-dots{
       position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
@@ -125,7 +119,7 @@
     .idot.on{ background:#fff;transform:scale(1.6); }
     #intro-cta{
       position:absolute;bottom:68px;left:50%;transform:translateX(-50%);
-      background:#0000FF;color:#fff;
+      background:#FA5E75;color:#fff;
       font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
       letter-spacing:.2em;text-transform:uppercase;
       padding:13px 30px;border:none;cursor:pointer;z-index:20;
@@ -133,7 +127,7 @@
       transition:opacity .5s,background .2s;white-space:nowrap;
     }
     #intro-cta.visible{ opacity:1;pointer-events:auto; }
-    #intro-cta:hover{ background:#2f2e2e; }
+    #intro-cta:hover{ background:#FA5E75; }
 
     /* entrada del primer texto — opacity inicial baja, JS toma el control */
     #iw-0 span{ opacity:0; }
@@ -141,8 +135,6 @@
 </head>
 <body class="selection:bg-primary selection:text-white">
 
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursor-ring"></div>
 
   <!-- Mobile menu -->
   <div class="fixed inset-0 z-[200] bg-primary flex flex-col justify-between p-10" id="mobile-menu">
@@ -156,11 +148,11 @@
       <a href="#about"   class="mobile-link font-headline font-black text-6xl text-white text-impact uppercase hover:text-secondary transition-colors">ABOUT</a>
       <a href="#contact" class="mobile-link font-headline font-black text-6xl text-white text-impact uppercase hover:text-secondary transition-colors">CONTACT</a>
     </nav>
-    <p class="font-label text-xs tracking-widest text-white/30 uppercase">2026 JESSICA SUÁREZ</p>
+    <p class="font-label text-xs tracking-widest text-white/30 uppercase">© 2024 JESSICA SUÁREZ</p>
   </div>
 
   <!-- Nav -->
-  <nav class="fixed top-0 w-full z-[100] bg-[#f9f6f5]/85 backdrop-blur-md flex justify-between items-center px-8 py-5 border-b border-black/5">
+  <nav class="fixed top-0 w-full z-[100] bg-[#FFF8FA]/85 backdrop-blur-md flex justify-between items-center px-8 py-5 border-b border-black/5">
     <a href="#home" class="text-xl font-black tracking-tighter text-primary uppercase font-headline">JESSICA SUÁREZ</a>
     <div class="hidden md:flex gap-10 items-center">
       <a class="font-headline uppercase tracking-tight font-bold text-sm text-primary hover:opacity-50 transition-opacity" href="#home">HOME</a>
@@ -188,7 +180,7 @@
           <span>Las mejores ideas no nacen de crear más.<br/><em>Nacen de hacer las preguntas correctas.</em></span>
         </div>
 
-        <span id="intro-tag">JESSICA SUÁREZ / PORTFOLIO 2026</span>
+        <span id="intro-tag">JESSICA SUÁREZ / PORTFOLIO 2024</span>
         <span id="intro-hint">↓ SCROLL</span>
         <div id="intro-dots">
           <span class="idot on"></span><span class="idot"></span>
@@ -246,17 +238,17 @@
     </div>
 
     <!-- ═══════════ WORKS ═══════════ -->
-    <section class="bg-[#f9f6f5] py-32 px-8 md:px-16 relative z-[50]" id="works">
+    <section class="bg-[#FFF8FA] py-32 px-8 md:px-16 relative z-[50]" id="works">
       <div class="flex flex-col md:flex-row justify-between items-baseline mb-20 reveal">
         <h2 class="font-headline text-on-surface text-5xl md:text-6xl font-black uppercase tracking-tighter">Selected Works</h2>
         <span class="font-label text-xs uppercase tracking-[0.2em] text-outline mt-2 md:mt-0">JESSICA SUÁREZ / 01 — 03</span>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
 
-        <a class="md:col-span-7 group cursor-none block reveal" href="rcn.html">
+        <a class="md:col-span-7 group block reveal" href="rcn.html">
           <div class="aspect-[16/9] bg-surface-variant overflow-hidden relative">
             <img alt="RCN Total" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" src="imagenes/rcn-cover.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
-            <div class="absolute inset-0 bg-[#000183] hidden items-center justify-center flex-col gap-3">
+            <div class="absolute inset-0 bg-[#FA5E75] hidden items-center justify-center flex-col gap-3">
               <span class="material-symbols-outlined text-white/30 text-5xl">image</span>
               <p class="font-headline text-white/30 text-xs uppercase tracking-widest">rcn-cover.jpg</p>
             </div>
@@ -272,7 +264,7 @@
           </div>
         </a>
 
-        <a class="md:col-span-5 md:mt-28 group cursor-none block reveal" href="hyatt.html" style="transition-delay:.1s">
+        <a class="md:col-span-5 md:mt-28 group block reveal" href="hyatt.html" style="transition-delay:.1s">
           <div class="aspect-[4/5] bg-surface-variant overflow-hidden relative">
             <img alt="Hyatt Storytelling" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" src="imagenes/hyatt-cover.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
             <div class="absolute inset-0 bg-[#3a0000] hidden items-center justify-center flex-col gap-3">
@@ -291,10 +283,10 @@
           </div>
         </a>
 
-        <a class="md:col-span-8 group cursor-none block reveal" href="roku.html" style="transition-delay:.2s">
+        <a class="md:col-span-8 group block reveal" href="roku.html" style="transition-delay:.2s">
           <div class="aspect-[21/9] bg-surface-variant overflow-hidden relative">
             <img alt="Roku Ads Manager" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" src="imagenes/roku-cover.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
-            <div class="absolute inset-0 bg-[#662d91] hidden items-center justify-center flex-col gap-3">
+            <div class="absolute inset-0 bg-[#FA5E75] hidden items-center justify-center flex-col gap-3">
               <span class="material-symbols-outlined text-white/30 text-5xl">image</span>
               <p class="font-headline text-white/30 text-xs uppercase tracking-widest">roku-cover.jpg</p>
             </div>
@@ -317,9 +309,9 @@
     <section class="bg-white py-32 md:py-48 px-8 md:px-16 overflow-hidden relative z-[50]" id="about">
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 md:gap-24">
         <div class="w-full md:w-2/5 relative reveal">
-          <div class="aspect-[3/4] bg-[#dfdcdc] relative z-10 overflow-hidden">
+          <div class="aspect-[3/4] bg-[#FFE3F6] relative z-10 overflow-hidden">
             <img alt="Jessica Suárez" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="imagenes/jessica-foto.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
-            <div class="absolute inset-0 bg-[#dfdcdc] hidden items-center justify-center flex-col gap-3">
+            <div class="absolute inset-0 bg-[#FFE3F6] hidden items-center justify-center flex-col gap-3">
               <span class="material-symbols-outlined text-black/20 text-6xl">person</span>
               <p class="font-headline text-black/20 text-xs uppercase tracking-widest">jessica-foto.jpg</p>
             </div>
@@ -337,7 +329,7 @@
             <p class="font-body text-lg md:text-xl text-on-surface/70 max-w-lg leading-relaxed">
               Todo empieza con una pregunta: ¿por qué? Jessica Suárez es una mente estratégica en la intersección del marketing y la construcción arquitectónica de marca. Su trabajo ha sido reconocido globalmente por su enfoque inquebrantable en el propósito.
             </p>
-            <div class="bg-[#f9f6f5] p-6 md:p-8 border border-primary/10">
+            <div class="bg-[#FFF8FA] p-6 md:p-8 border border-primary/10">
               <p class="font-label text-xs tracking-widest text-outline mb-2">RECOGNITION</p>
               <h4 class="font-headline text-xl md:text-2xl font-bold text-primary uppercase mb-1">Premio Liberu 2023</h4>
               <p class="font-body text-sm text-on-surface">Latin American Winner para Nestlé — Outstanding Achievement in Narrative Strategy</p>
@@ -372,7 +364,7 @@
     <div class="w-full flex flex-col gap-10">
       <div class="flex flex-col gap-1">
         <span class="font-headline text-3xl md:text-4xl font-black uppercase text-white">JESSICA SUÁREZ</span>
-        <p class="font-headline text-base font-medium text-white/40">NO BORDERS. NO LIMITS.</p>
+        <p class="font-headline text-base font-medium text-white/40">CREATIVE DIRECTION & STRATEGY</p>
       </div>
       <div class="flex flex-wrap gap-6 md:gap-10">
         <!-- 🔗 CAMBIA LOS LINKS AQUÍ -->
@@ -380,7 +372,7 @@
         <a href="https://linkedin.com/in/TU_USUARIO" target="_blank" class="font-headline text-2xl md:text-3xl font-black uppercase text-white/30 hover:text-white hover:italic transition-all duration-300">LINKEDIN</a>
       </div>
       <div class="pt-10 border-t border-white/10 w-full flex flex-col md:flex-row justify-between items-end gap-4">
-        <p class="font-headline text-xs font-bold uppercase tracking-widest text-white/20">©2026 JESSICA SUÁREZ PORTFOLIO.</p>
+        <p class="font-headline text-xs font-bold uppercase tracking-widest text-white/20">©2024 JESSICA SUÁREZ PORTFOLIO.</p>
         <div class="flex gap-3">
           <span class="material-symbols-outlined text-5xl opacity-10">motion_sensor_active</span>
           <span class="material-symbols-outlined text-5xl opacity-10">view_in_ar</span>
@@ -390,11 +382,6 @@
   </footer>
 
   <script>
-  // ── cursor ──────────────────────────────────────────────────────
-  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-  (function raf(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf);})();
   document.querySelectorAll('a,button').forEach(el=>{
     el.addEventListener('mouseenter',()=>cursor.classList.add('hovering'));
     el.addEventListener('mouseleave',()=>cursor.classList.remove('hovering'));
@@ -415,7 +402,7 @@
     const hint    = document.getElementById('intro-hint');
     const tag     = document.getElementById('intro-tag');
     const cta     = document.getElementById('intro-cta');
-    const COLORS  = ['#0000FF','#FFFF00','#FF0000','#f9f6f5'];
+    const COLORS  = ['#3A9AFF','#FFDE42','#D62828','#FFF8FA'];
     const N       = words.length;
     const S0      = 0.55;   // escala inicial (pequeño)
     const SPEAK   = 1.55;   // escala máxima antes del fade
@@ -458,12 +445,12 @@
       bg.style.background=(loc>0.5&&idx<N-1)?COLORS[idx+1]:COLORS[idx];
 
       var active=Math.min(N-1,Math.max(0,Math.round(prog*(N-1))));
-      var darkBg=(idx===1&&loc<0.5)||(idx===3);
+      var darkBg=(idx===1)||(idx===3);
       dots.forEach(function(d,i){
         d.classList.toggle('on',i===active);
         d.style.background=d.classList.contains('on')
-          ?(darkBg?'#0000FF':'#fff')
-          :(darkBg?'rgba(0,0,0,.25)':'rgba(255,255,255,.3)');
+          ?(darkBg?'#FA5E75':'#FFF8FA')
+          :(darkBg?'rgba(0,0,0,.15)':'rgba(253,135,152,.4)');
       });
       var uiCol=darkBg?'rgba(0,0,0,.3)':'rgba(255,255,255,.35)';
       hint.style.color=uiCol; tag.style.color=uiCol;
