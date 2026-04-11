@@ -159,37 +159,70 @@
           <h3 class="font-headline text-2xl md:text-3xl font-bold tracking-tighter uppercase">RCN Total en tres palabras</h3>
           <span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-white/30 mt-2 md:mt-0">PLAY REEL / 2024</span>
         </div>
-   
-        <div class="video-wrapper">
-          <video controls poster="imagenes/rcn-video-thumb.jpg">
+
+        <!-- Video con thumbnail automático del primer frame + botón play -->
+        <div class="relative aspect-video w-full overflow-hidden" id="video-container">
+          <!-- Thumbnail: primer frame del video capturado automáticamente -->
+          <video
+            id="rcn-video"
+            class="w-full h-full object-cover"
+            preload="metadata"
+            style="display:block;"
+          >
             <source src="videos/REEL_TOTAL_LATAM.mp4" type="video/mp4">
           </video>
-        </div>
-        <!--
-        ════════════════════════════════════════════
-        🎥 VIDEO RCN TOTAL — ELIGE UNA OPCIÓN:
 
-        OPCIÓN A — Video mp4 propio:
-        <div class="video-wrapper">
-          <video controls poster="imagenes/rcn-video-thumb.jpg">
-            <source src="videos/rcn-reel.mp4" type="video/mp4">
-          </video>
+          <!-- Overlay oscuro + botón play -->
+          <div
+            id="play-overlay"
+            class="absolute inset-0 flex items-center justify-center"
+            style="background:rgba(0,0,0,0.35); cursor:pointer; transition:background 0.3s;"
+            onmouseenter="this.style.background='rgba(0,0,0,0.2)'"
+            onmouseleave="this.style.background='rgba(0,0,0,0.35)'"
+          >
+            <div style="
+              width:80px; height:80px;
+              background:#FA5E75;
+              border-radius:50%;
+              display:flex; align-items:center; justify-content:center;
+              transition:transform 0.2s, background 0.2s;
+            "
+            onmouseenter="this.style.transform='scale(1.1)'; this.style.background='#fff';"
+            onmouseleave="this.style.transform='scale(1)'; this.style.background='#FA5E75';">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:36px;margin-left:4px;" id="play-icon">play_arrow</span>
+            </div>
+          </div>
         </div>
 
-        OPCIÓN B — YouTube:
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/TU_ID" frameborder="0" allowfullscreen></iframe>
-        </div>
+        <script>
+          (function(){
+            var video   = document.getElementById('rcn-video');
+            var overlay = document.getElementById('play-overlay');
+            var icon    = document.getElementById('play-icon');
 
-        OPCIÓN C — Vimeo:
-        <div class="video-wrapper">
-          <iframe src="https://player.vimeo.com/video/TU_ID" frameborder="0" allowfullscreen></iframe>
-        </div>
-        ════════════════════════════════════════════
-        -->
+            // Capturar primer frame como thumbnail
+            video.currentTime = 0.1;
 
-        <!-- Placeholder -->
-        
+            overlay.addEventListener('click', function(){
+              if(video.paused){
+                video.play();
+                overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
+              }
+            });
+
+            video.addEventListener('pause', function(){
+              overlay.style.opacity = '1';
+              overlay.style.pointerEvents = 'auto';
+            });
+
+            video.addEventListener('ended', function(){
+              overlay.style.opacity = '1';
+              overlay.style.pointerEvents = 'auto';
+              icon.textContent = 'replay';
+            });
+          })();
+        </script>
       </div>
     </section>
 
