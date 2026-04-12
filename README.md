@@ -1,4 +1,4 @@
-# 📁 JESSICA SUÁREZ — GALLERY_KINETIC
+# 📁 JESSICA SUÁREZ — PORTFOLIO
 ## Guía para personalizar y subir a GitHub
 
 ---
