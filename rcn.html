@@ -121,8 +121,8 @@
       <!-- Imagen de fondo a pantalla completa -->
       <img
         alt="RCN Total — hero banner"
-        src="imagenes/rcn-hero.jpg"
-        onerror="this.style.display='none';"
+        src="imagenes/rcn-hero.jpg" data-base="imagenes/rcn-hero"
+        onerror="tryNextFormat(this)"
         style="
           position: absolute;
           inset: 0;
@@ -183,7 +183,7 @@
               <img
                 alt="Pantalla sin acceso RCN"
                 class="lightbox-img w-full h-full object-cover"
-                src="imagenes/rcn-contexto1.jpg"
+                src="imagenes/rcn-contexto1.jpg" data-base="imagenes/rcn-contexto1"
                 onclick="openLightbox(this.src)"
                 onerror="this.style.background='#111';"
               />
@@ -193,7 +193,7 @@
               <img
                 alt="¡Oe llave! — RCN Total"
                 class="lightbox-img w-full h-full object-cover"
-                src="imagenes/rcn-contexto2.jpg"
+                src="imagenes/rcn-contexto2.jpg" data-base="imagenes/rcn-contexto2"
                 onclick="openLightbox(this.src)"
                 onerror="this.parentElement.style.background='#FFE3F6';"
               />
@@ -346,6 +346,20 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
     }, { threshold: 0.1 });
     reveals.forEach(el => obs.observe(el));
+  </script>
+  <script>
+    var _formats = ['jpg','png','svg','webp','jpeg'];
+    function tryNextFormat(img){
+      var base = img.dataset.base || img.src.replace(/\.[^.]+$/, '');
+      var tried = img.dataset.tried ? img.dataset.tried.split(',') : [];
+      var next = _formats.find(function(f){ return tried.indexOf(f) === -1; });
+      if(next){
+        img.dataset.tried = tried.concat(next).join(',');
+        img.src = base + '.' + next;
+      } else {
+        img.style.display = 'none';
+      }
+    }
   </script>
 </body>
 </html>

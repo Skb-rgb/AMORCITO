@@ -121,8 +121,8 @@
       <!-- 📸 IMAGEN HERO — sube imagenes/roku-hero.jpg -->
       <img
         alt="Roku Ads Manager hero"
-        src="imagenes/roku-hero.jpg"
-        onerror="this.style.display='none';"
+        src="imagenes/roku-hero.jpg" data-base="imagenes/roku-hero"
+        onerror="tryNextFormat(this)"
         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;"
       />
       <!-- Overlay oscuro + gradiente -->
@@ -191,8 +191,8 @@
               📸 IMAGEN INSIGHT
               Sube a imagenes/roku-insight.jpg
               -->
-              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-insight.jpg" alt="Insight" onclick="lbOpen(this.src)"
-                onerror="this.style.display='none';"/>
+              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-insight.jpg" data-base="imagenes/roku-insight" alt="Insight" onclick="lbOpen(this.src)"
+                onerror="tryNextFormat(this)"/>
             </div>
           </div>
         </div>
@@ -230,8 +230,8 @@
             📸 IMAGEN CLARIDAD
             Sube a imagenes/roku-claridad.jpg
             -->
-            <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-claridad.jpg" alt="Claridad" onclick="lbOpen(this.src)"
-              onerror="this.style.display='none';"/>
+            <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-claridad.jpg" data-base="imagenes/roku-claridad" alt="Claridad" onclick="lbOpen(this.src)"
+              onerror="tryNextFormat(this)"/>
           </div>
         </div>
 
@@ -243,8 +243,8 @@
             📸 IMAGEN IDENTIFICACIÓN
             Sube a imagenes/roku-identificacion.jpg
             -->
-            <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-identificacion.jpg" alt="Identificación" onclick="lbOpen(this.src)"
-              onerror="this.style.display='none';"/>
+            <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-identificacion.jpg" data-base="imagenes/roku-identificacion" alt="Identificación" onclick="lbOpen(this.src)"
+              onerror="tryNextFormat(this)"/>
           </div>
         </div>
 
@@ -257,12 +257,12 @@
             Sube a imagenes/roku-sorpresa1.jpg y roku-sorpresa2.jpg
             -->
             <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-sorpresa1.jpg" alt="Sorpresa 1" onclick="lbOpen(this.src)"
-                onerror="this.style.display='none';"/>
+              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-sorpresa1.jpg" data-base="imagenes/roku-sorpresa1" alt="Sorpresa 1" onclick="lbOpen(this.src)"
+                onerror="tryNextFormat(this)"/>
             </div>
             <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-sorpresa2.jpg" alt="Sorpresa 2" onclick="lbOpen(this.src)"
-                onerror="this.style.display='none';"/>
+              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-sorpresa2.jpg" data-base="imagenes/roku-sorpresa2" alt="Sorpresa 2" onclick="lbOpen(this.src)"
+                onerror="tryNextFormat(this)"/>
             </div>
           </div>
         </div>
@@ -276,12 +276,12 @@
             Sube a imagenes/roku-contenido1.jpg y roku-contenido2.jpg
             -->
             <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-contenido1.jpg" alt="Contenido 1" onclick="lbOpen(this.src)"
-                onerror="this.style.display='none';"/>
+              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-contenido1.jpg" data-base="imagenes/roku-contenido1" alt="Contenido 1" onclick="lbOpen(this.src)"
+                onerror="tryNextFormat(this)"/>
             </div>
             <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-contenido2.jpg" alt="Contenido 2" onclick="lbOpen(this.src)"
-                onerror="this.style.display='none';"/>
+              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-contenido2.jpg" data-base="imagenes/roku-contenido2" alt="Contenido 2" onclick="lbOpen(this.src)"
+                onerror="tryNextFormat(this)"/>
             </div>
           </div>
         </div>
@@ -323,6 +323,20 @@
     document.addEventListener('keydown',e=>{ if(e.key==='Escape') lbClose(); });
     const obs=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } }); },{threshold:.1});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+  <script>
+    var _formats = ['jpg','png','svg','webp','jpeg'];
+    function tryNextFormat(img){
+      var base = img.dataset.base || img.src.replace(/\.[^.]+$/, '');
+      var tried = img.dataset.tried ? img.dataset.tried.split(',') : [];
+      var next = _formats.find(function(f){ return tried.indexOf(f) === -1; });
+      if(next){
+        img.dataset.tried = tried.concat(next).join(',');
+        img.src = base + '.' + next;
+      } else {
+        img.style.display = 'none';
+      }
+    }
   </script>
 </body>
 </html>
