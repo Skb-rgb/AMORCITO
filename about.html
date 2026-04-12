@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>About — Jessica Suárez</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;900&family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          "primary":"#FA5E75","secondary":"#FD8798","tertiary":"#FFE3F6",
+          "on-surface":"#4D4647","background":"#FFF8FA",
+          "outline":"#4D4647","surface-variant":"#FFE3F6",
+        },
+        borderRadius: { "DEFAULT":"0px" },
+        fontFamily: { "headline":["Space Grotesk"],"body":["Manrope"] }
+      }}
+    }
+  </script>
+  <style>
+    *{ box-sizing:border-box; }
+    a,button{ cursor:pointer; }
+    .material-symbols-outlined{ font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body{ font-family:'Manrope',sans-serif; background:#FFF8FA; color:#4D4647; }
+    .reveal{ opacity:0; transform:translateY(40px); transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal.visible{ opacity:1; transform:translateY(0); }
+    @keyframes fadeUp{ from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .fade-up{ opacity:0; animation:fadeUp .8s cubic-bezier(.16,1,.3,1) forwards; }
+    .delay-1{ animation-delay:.1s; } .delay-2{ animation-delay:.25s; }
+  </style>
+</head>
+<body class="selection:bg-primary selection:text-white">
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 bg-[#FFF8FA]/85 backdrop-blur-md flex justify-between items-center px-8 py-5 border-b border-black/5">
+    <a href="index.html" class="text-xl font-black tracking-tighter text-primary uppercase font-headline hover:opacity-70 transition-opacity">JESSICA SUÁREZ</a>
+    <div class="hidden md:flex gap-10 items-center">
+      <a class="font-headline uppercase tracking-tight font-bold text-sm text-primary hover:opacity-50 transition-opacity" href="index.html#works">WORK</a>
+      <a class="font-headline uppercase tracking-tight font-bold text-sm text-primary border-b-2 border-primary pb-1" href="about.html">ABOUT</a>
+      <a class="font-headline uppercase tracking-tight font-bold text-sm text-primary hover:opacity-50 transition-opacity" href="contact.html">CONTACT</a>
+    </div>
+    <a href="contact.html" class="hidden md:inline-block bg-primary text-white font-headline uppercase tracking-tight font-bold text-xs px-5 py-2.5 hover:bg-black transition-colors duration-300">START_JOURNEY</a>
+  </nav>
+
+  <main class="pt-32 pb-24 px-8 md:px-16">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Header -->
+      <div class="mb-20">
+        <p class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-primary mb-4 fade-up delay-1">About</p>
+        <h1 class="font-headline text-5xl md:text-[8vw] font-black uppercase leading-[0.88] tracking-tighter text-on-surface fade-up delay-2">
+          Jessica<br/>Suárez.
+        </h1>
+      </div>
+
+      <!-- Contenido principal -->
+      <div class="flex flex-col md:flex-row gap-16 md:gap-24 items-start">
+
+        <!-- Foto -->
+        <div class="w-full md:w-2/5 relative reveal">
+          <div class="aspect-[3/4] bg-[#FFE3F6] relative z-10 overflow-hidden">
+            <!--
+            📸 TU FOTO — sube imagenes/jessica-foto.jpg
+            -->
+            <img
+              alt="Jessica Suárez"
+              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              src="imagenes/jessica-foto.jpg"
+              data-base="imagenes/jessica-foto"
+              onerror="tryNextFormat(this)"
+            />
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-full h-full border-[8px] border-primary/15 -z-0 pointer-events-none"></div>
+        </div>
+
+        <!-- Texto -->
+        <div class="w-full md:w-3/5 flex flex-col gap-12 reveal" style="transition-delay:.15s">
+
+          <div>
+            <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-primary block mb-4">The Philosophy</span>
+            <h2 class="font-headline text-3xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter text-on-surface">
+              "No pienso en piezas.<br/>Pienso en el juego."
+            </h2>
+          </div>
+
+          <div class="border-l-4 border-primary pl-8 flex flex-col gap-8">
+            <p class="font-body text-lg md:text-xl text-on-surface/70 leading-relaxed">
+              Todo empieza con una pregunta: ¿por qué? Jessica Suárez es una mente estratégica en la intersección del marketing y la construcción arquitectónica de marca. Su trabajo ha sido reconocido globalmente por su enfoque inquebrantable en el propósito.
+            </p>
+            <p class="font-body text-base text-on-surface/60 leading-relaxed">
+              Con experiencia en dirección creativa, UX y estrategia de contenido para marcas globales, su enfoque combina pensamiento analítico con ejecución visual de alto impacto.
+            </p>
+          </div>
+
+          <!-- Premio -->
+          <div class="bg-white p-6 md:p-8 border border-primary/10 reveal" style="transition-delay:.3s">
+            <p class="font-label text-xs tracking-widest text-outline mb-2 uppercase">Recognition</p>
+            <h4 class="font-headline text-xl md:text-2xl font-bold text-primary uppercase mb-1">Premio Liberu 2023</h4>
+            <p class="font-body text-sm text-on-surface">Latin American Winner para Nestlé — Outstanding Achievement in Narrative Strategy</p>
+          </div>
+
+          <!-- Skills -->
+          <div class="reveal" style="transition-delay:.4s">
+            <p class="font-label text-xs tracking-widest text-outline mb-6 uppercase">Areas</p>
+            <div class="flex flex-wrap gap-3">
+              <span class="font-headline text-xs font-bold uppercase tracking-widest border border-primary/30 px-4 py-2 text-primary">Dirección Creativa</span>
+              <span class="font-headline text-xs font-bold uppercase tracking-widest border border-primary/30 px-4 py-2 text-primary">UX Strategy</span>
+              <span class="font-headline text-xs font-bold uppercase tracking-widest border border-primary/30 px-4 py-2 text-primary">Brand Identity</span>
+              <span class="font-headline text-xs font-bold uppercase tracking-widest border border-primary/30 px-4 py-2 text-primary">Storytelling</span>
+              <span class="font-headline text-xs font-bold uppercase tracking-widest border border-primary/30 px-4 py-2 text-primary">Content Strategy</span>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <a href="contact.html" class="inline-flex items-center gap-2 font-headline font-bold text-primary text-sm uppercase tracking-widest border-b-2 border-primary pb-1 w-fit hover:gap-4 transition-all duration-300 reveal" style="transition-delay:.5s">
+            Trabajemos juntos <span class="material-symbols-outlined text-base">arrow_forward</span>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white px-8 md:px-16 py-8 flex justify-between items-center">
+    <a href="index.html" class="font-headline font-black text-sm uppercase tracking-widest text-white/40 hover:text-white transition-colors">← Volver al portafolio</a>
+    <span class="font-label text-xs text-white/20 uppercase tracking-widest">© 2026 JESSICA SUÁREZ</span>
+  </footer>
+
+  <script>
+    var _formats=['jpg','png','svg','webp','jpeg'];
+    function tryNextFormat(img){
+      var base=img.dataset.base||img.src.replace(/\.[^.]+$/,'');
+      var tried=img.dataset.tried?img.dataset.tried.split(','):[];
+      var next=_formats.find(function(f){return tried.indexOf(f)===-1;});
+      if(next){img.dataset.tried=tried.concat(next).join(',');img.src=base+'.'+next;}
+      else{img.style.display='none';}
+    }
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+    },{threshold:.1});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
