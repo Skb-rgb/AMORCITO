@@ -161,80 +161,6 @@
       </div>
     </section>
 
-    <!-- ── CONTEXTO ──────────────────────────────────────────────── -->
-    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FFF8FA]" id="contexto">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
-        <div class="md:col-span-5 reveal">
-          <h2 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-on-surface">EL<br/>CONTEXTO</h2>
-        </div>
-        <div class="md:col-span-7 flex flex-col gap-10 reveal" style="transition-delay:0.15s">
-          <p class="font-body text-lg md:text-xl leading-relaxed text-on-surface-variant max-w-2xl">
-            La plataforma no estaba disponible en todos los territorios. Y lo que pasaba antes de entrar… no estaba diseñado.
-          </p>
-          <!-- Lightbox overlay -->
-          <div id="lightbox" onclick="closeLightbox()">
-            <button id="lightbox-close" onclick="closeLightbox()">×</button>
-            <img id="lightbox-img" src="" alt=""/>
-          </div>
-
-          <div class="grid grid-cols-2 gap-4">
-            <!-- Imagen 1 -->
-            <div class="h-52 md:h-64 overflow-hidden relative">
-              <img
-                alt="Pantalla sin acceso RCN"
-                class="lightbox-img w-full h-full object-cover"
-                src="imagenes/rcn-contexto1.jpg" data-base="imagenes/rcn-contexto1"
-                onclick="openLightbox(this.src)"
-                onerror="this.style.background='#111';"
-              />
-            </div>
-            <!-- Imagen 2 -->
-            <div class="h-52 md:h-64 overflow-hidden relative">
-              <img
-                alt="¡Oe llave! — RCN Total"
-                class="lightbox-img w-full h-full object-cover"
-                src="imagenes/rcn-contexto2.jpg" data-base="imagenes/rcn-contexto2"
-                onclick="openLightbox(this.src)"
-                onerror="this.parentElement.style.background='#FFE3F6';"
-              />
-              <div class="absolute bottom-0 left-0 right-0 p-4" style="background:linear-gradient(to top,rgba(0,0,0,0.7),transparent); pointer-events:none;">
-                <span class="font-headline text-white text-xs uppercase tracking-widest font-bold">Experiencia alternativa</span>
-              </div>
-            </div>
-          </div>
-
-          <script>
-            function openLightbox(src){
-              document.getElementById('lightbox-img').src = src;
-              document.getElementById('lightbox').classList.add('open');
-              document.body.style.overflow = 'hidden';
-            }
-            function closeLightbox(){
-              document.getElementById('lightbox').classList.remove('open');
-              document.body.style.overflow = '';
-            }
-            document.addEventListener('keydown', function(e){
-              if(e.key === 'Escape') closeLightbox();
-            });
-          </script>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── DIRECCIÓN ─────────────────────────────────────────────── -->
-    <section class="py-24 md:py-40 px-8 md:px-16 bg-secondary text-on-surface" id="direccion">
-      <div class="max-w-4xl mx-auto text-center reveal">
-        <span class="material-symbols-outlined text-5xl mb-6 block">explore</span>
-        <h2 class="font-headline text-3xl md:text-6xl font-black uppercase leading-none tracking-tight mb-10">
-          Convertir una barrera en una oportunidad de conexión.
-        </h2>
-        <div class="w-20 h-1 bg-on-surface mx-auto mb-10"></div>
-        <p class="font-body text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed">
-          La experiencia no empieza cuando accedes. Empieza desde el primer contacto. Redefinimos el "No" para transformarlo en un "Próximamente" emocional.
-        </p>
-      </div>
-    </section>
-
     <!-- ── VIDEO ─────────────────────────────────────────────────── -->
     <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FA5E75] text-white" id="video">
       <div class="max-w-7xl mx-auto reveal">
@@ -306,6 +232,162 @@
             });
           })();
         </script>
+      </div>
+    </section>
+
+
+    <!-- ── CONTEXTO ──────────────────────────────────────────────── -->
+    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FFF8FA]" id="contexto">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
+        <div class="md:col-span-5 reveal">
+          <h2 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-on-surface">EL<br/>CONTEXTO</h2>
+        </div>
+        <div class="md:col-span-7 flex flex-col gap-10 reveal" style="transition-delay:0.15s">
+          <p class="font-body text-lg md:text-xl leading-relaxed text-on-surface-variant max-w-2xl">
+            La plataforma no estaba disponible en todos los territorios. Y lo que pasaba antes de entrar… no estaba diseñado.
+          </p>
+          <!-- Lightbox overlay -->
+          <div id="lightbox" onclick="closeLightbox()">
+            <button id="lightbox-close" onclick="closeLightbox()">×</button>
+            <img id="lightbox-img" src="" alt=""/>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Imagen 1 -->
+            <div class="h-52 md:h-64 overflow-hidden relative">
+              <img
+                alt="Pantalla sin acceso RCN"
+                class="lightbox-img w-full h-full object-cover"
+                src="imagenes/rcn-contexto1.jpg" data-base="imagenes/rcn-contexto1"
+                onclick="openLightbox(this.src)"
+                onerror="this.style.background='#111';"
+              />
+            </div>
+            <!-- Imagen 2 -->
+            <div class="h-52 md:h-64 overflow-hidden relative">
+              <img
+                alt="¡Oe llave! — RCN Total"
+                class="lightbox-img w-full h-full object-cover"
+                src="imagenes/rcn-contexto2.jpg" data-base="imagenes/rcn-contexto2"
+                onclick="openLightbox(this.src)"
+                onerror="this.parentElement.style.background='#FFE3F6';"
+              />
+              <div class="absolute bottom-0 left-0 right-0 p-4" style="background:linear-gradient(to top,rgba(0,0,0,0.7),transparent); pointer-events:none;">
+                <span class="font-headline text-white text-xs uppercase tracking-widest font-bold">Experiencia alternativa</span>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            function openLightbox(src){
+              document.getElementById('lightbox-img').src = src;
+              document.getElementById('lightbox').classList.add('open');
+              document.body.style.overflow = 'hidden';
+            }
+            function closeLightbox(){
+              document.getElementById('lightbox').classList.remove('open');
+              document.body.style.overflow = '';
+            }
+            document.addEventListener('keydown', function(e){
+              if(e.key === 'Escape') closeLightbox();
+            });
+          </script>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PIEZAS ───────────────────────────────────────────────── -->
+    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FFF8FA]" id="piezas">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Título sección -->
+        <div class="mb-16 reveal">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-primary block mb-3">Piezas / Comunicación</span>
+          <h2 class="font-headline text-4xl md:text-5xl font-black tracking-tighter text-on-surface">
+            Convertir una barrera en<br/>una oportunidad de conexión.
+          </h2>
+        </div>
+
+        <!-- MAILINGS — 2 imágenes verticales -->
+        <div class="mb-16 reveal">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-6 block">Mailings</span>
+          <div class="grid grid-cols-2 gap-6">
+
+            <!-- Mailing 1 -->
+            <div class="aspect-[9/16] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
+              <img
+                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                src="imagenes/rcn-mailing1.jpg" data-base="imagenes/rcn-mailing1"
+                alt="Mailing RCN 1"
+                onclick="openLightbox(this.src)"
+                onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;"
+              />
+              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+                <span class="material-symbols-outlined text-4xl">mail</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-mailing1.jpg</p>
+              </div>
+            </div>
+
+            <!-- Mailing 2 -->
+            <div class="aspect-[9/16] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
+              <img
+                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                src="imagenes/rcn-mailing2.jpg" data-base="imagenes/rcn-mailing2"
+                alt="Mailing RCN 2"
+                onclick="openLightbox(this.src)"
+                onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;"
+              />
+              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+                <span class="material-symbols-outlined text-4xl">mail</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-mailing2.jpg</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PUSH NOTIFICATIONS — 2 imágenes 16:9 -->
+        <div class="reveal">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-6 block">Push Notifications</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Push 1 -->
+            <div class="aspect-video overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
+              <img
+                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                src="imagenes/rcn-push1.jpg" data-base="imagenes/rcn-push1"
+                alt="Push Notification RCN 1"
+                onclick="openLightbox(this.src)"
+                onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;"
+              />
+              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+                <span class="material-symbols-outlined text-4xl">notifications</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-push1.jpg</p>
+              </div>
+            </div>
+
+            <!-- Push 2 -->
+            <div class="aspect-video overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
+              <img
+                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                src="imagenes/rcn-push2.jpg" data-base="imagenes/rcn-push2"
+                alt="Push Notification RCN 2"
+                onclick="openLightbox(this.src)"
+                onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;"
+              />
+              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+                <span class="material-symbols-outlined text-4xl">notifications</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-push2.jpg</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </section>
 
