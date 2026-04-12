@@ -166,71 +166,167 @@
       <div class="max-w-7xl mx-auto reveal">
         <div class="flex flex-col md:flex-row justify-between items-baseline mb-10 border-b border-white/10 pb-5">
           <h3 class="font-headline text-2xl md:text-3xl font-bold tracking-tighter uppercase">RCN Total en tres palabras</h3>
-          <span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-white/30 mt-2 md:mt-0">PLAY REEL / 2024</span>
+          <span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-white/30 mt-2 md:mt-0">PLAY REEL / 2026</span>
         </div>
 
-        <!-- Video con thumbnail automático del primer frame + botón play -->
-        <div class="relative aspect-video w-full overflow-hidden" id="video-container">
-          <!-- Thumbnail: primer frame del video capturado automáticamente -->
-          <video
-            id="rcn-video"
-            class="w-full h-full object-cover"
-            preload="metadata"
-            style="display:block;"
-          >
+        <!-- Player personalizado -->
+        <div style="position:relative; width:100%; background:#000;" id="video-container">
+
+          <video id="rcn-video" preload="metadata" style="width:100%; display:block; max-height:70vh; object-fit:contain;">
             <source src="videos/REEL_TOTAL_LATAM.mp4" type="video/mp4">
           </video>
 
-          <!-- Overlay oscuro + botón play -->
-          <div
-            id="play-overlay"
-            class="absolute inset-0 flex items-center justify-center"
-            style="background:rgba(0,0,0,0.35); cursor:pointer; transition:background 0.3s;"
-            onmouseenter="this.style.background='rgba(0,0,0,0.2)'"
-            onmouseleave="this.style.background='rgba(0,0,0,0.35)'"
-          >
-            <div style="
-              width:80px; height:80px;
+          <!-- Overlay play inicial -->
+          <div id="play-overlay" style="
+            position:absolute; inset:0;
+            display:flex; align-items:center; justify-content:center;
+            background:rgba(0,0,0,0.4); cursor:pointer; transition:opacity .3s;
+          ">
+            <div id="play-btn-circle" style="
+              width:80px; height:80px; border-radius:50%;
               background:#FA5E75;
-              border-radius:50%;
               display:flex; align-items:center; justify-content:center;
-              transition:transform 0.2s, background 0.2s;
-            "
-            onmouseenter="this.style.transform='scale(1.1)'; this.style.background='#fff';"
-            onmouseleave="this.style.transform='scale(1)'; this.style.background='#FA5E75';">
-              <span class="material-symbols-outlined" style="color:#fff;font-size:36px;margin-left:4px;" id="play-icon">play_arrow</span>
+              transition:transform .2s, background .2s;
+            ">
+              <span class="material-symbols-outlined" style="color:#fff;font-size:38px;margin-left:5px;" id="play-icon">play_arrow</span>
+            </div>
+          </div>
+
+          <!-- Controles personalizados -->
+          <div id="vctrls" style="
+            position:absolute; bottom:0; left:0; right:0;
+            padding:10px 16px 12px;
+            background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            opacity:0; transition:opacity .3s;
+            display:flex; flex-direction:column; gap:8px;
+          ">
+            <!-- Barra de progreso -->
+            <div id="progress-bar" style="
+              width:100%; height:4px; background:rgba(255,255,255,0.3);
+              cursor:pointer; border-radius:2px; position:relative;
+            ">
+              <div id="progress-fill" style="height:100%; width:0%; background:#FA5E75; border-radius:2px; pointer-events:none;"></div>
+            </div>
+
+            <!-- Botones -->
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <!-- Play/Pause -->
+                <button id="pp-btn" style="background:none;border:none;color:#fff;cursor:pointer;padding:0;display:flex;align-items:center;">
+                  <span class="material-symbols-outlined" style="font-size:28px;" id="pp-icon">pause</span>
+                </button>
+                <!-- Volumen -->
+                <button id="mute-btn" style="background:none;border:none;color:#fff;cursor:pointer;padding:0;display:flex;align-items:center;">
+                  <span class="material-symbols-outlined" style="font-size:22px;" id="mute-icon">volume_up</span>
+                </button>
+                <input type="range" id="vol-slider" min="0" max="1" step="0.05" value="1"
+                  style="width:70px; accent-color:#FA5E75; cursor:pointer;"/>
+                <!-- Tiempo -->
+                <span id="time-display" style="color:#fff; font-family:'Space Grotesk',sans-serif; font-size:11px; opacity:.7;">0:00 / 0:00</span>
+              </div>
+              <!-- Fullscreen -->
+              <button id="fs-btn" style="background:none;border:none;color:#fff;cursor:pointer;padding:0;display:flex;align-items:center;">
+                <span class="material-symbols-outlined" style="font-size:22px;">fullscreen</span>
+              </button>
             </div>
           </div>
         </div>
 
         <script>
-          (function(){
-            var video   = document.getElementById('rcn-video');
-            var overlay = document.getElementById('play-overlay');
-            var icon    = document.getElementById('play-icon');
+        (function(){
+          var video    = document.getElementById('rcn-video');
+          var overlay  = document.getElementById('play-overlay');
+          var ctrls    = document.getElementById('vctrls');
+          var ppBtn    = document.getElementById('pp-btn');
+          var ppIcon   = document.getElementById('pp-icon');
+          var playIcon = document.getElementById('play-icon');
+          var muteBtn  = document.getElementById('mute-btn');
+          var muteIcon = document.getElementById('mute-icon');
+          var volSlider= document.getElementById('vol-slider');
+          var progress = document.getElementById('progress-bar');
+          var fill     = document.getElementById('progress-fill');
+          var timeDisp = document.getElementById('time-display');
+          var fsBtn    = document.getElementById('fs-btn');
+          var container= document.getElementById('video-container');
+          var hideTimer;
 
-            // Capturar primer frame como thumbnail
-            video.currentTime = 0.1;
+          // Capturar primer frame
+          video.currentTime = 0.1;
 
-            overlay.addEventListener('click', function(){
-              if(video.paused){
-                video.play();
-                overlay.style.opacity = '0';
-                overlay.style.pointerEvents = 'none';
-              }
-            });
+          function fmt(s){
+            var m=Math.floor(s/60), sec=Math.floor(s%60);
+            return m+':'+(sec<10?'0':'')+sec;
+          }
 
-            video.addEventListener('pause', function(){
-              overlay.style.opacity = '1';
-              overlay.style.pointerEvents = 'auto';
-            });
+          function showCtrls(){
+            ctrls.style.opacity='1';
+            clearTimeout(hideTimer);
+            hideTimer=setTimeout(function(){ if(!video.paused) ctrls.style.opacity='0'; },2500);
+          }
 
-            video.addEventListener('ended', function(){
-              overlay.style.opacity = '1';
-              overlay.style.pointerEvents = 'auto';
-              icon.textContent = 'replay';
-            });
-          })();
+          container.addEventListener('mousemove', showCtrls);
+          container.addEventListener('touchstart', showCtrls);
+
+          // Play desde overlay
+          overlay.addEventListener('click', function(){
+            video.play();
+            overlay.style.opacity='0';
+            overlay.style.pointerEvents='none';
+            showCtrls();
+          });
+
+          // Play/Pause
+          ppBtn.addEventListener('click', function(){
+            if(video.paused){ video.play(); ppIcon.textContent='pause'; showCtrls(); }
+            else { video.pause(); ppIcon.textContent='play_arrow'; ctrls.style.opacity='1'; }
+          });
+
+          video.addEventListener('pause', function(){
+            ppIcon.textContent='play_arrow';
+            ctrls.style.opacity='1';
+            clearTimeout(hideTimer);
+          });
+          video.addEventListener('play',  function(){ ppIcon.textContent='pause'; });
+          video.addEventListener('ended', function(){
+            overlay.style.opacity='1';
+            overlay.style.pointerEvents='auto';
+            playIcon.textContent='replay';
+            ppIcon.textContent='play_arrow';
+            ctrls.style.opacity='0';
+          });
+
+          // Progreso
+          video.addEventListener('timeupdate', function(){
+            if(!video.duration) return;
+            var pct = (video.currentTime/video.duration)*100;
+            fill.style.width = pct+'%';
+            timeDisp.textContent = fmt(video.currentTime)+' / '+fmt(video.duration);
+          });
+
+          progress.addEventListener('click', function(e){
+            var rect=progress.getBoundingClientRect();
+            var pct=(e.clientX-rect.left)/rect.width;
+            video.currentTime=pct*video.duration;
+          });
+
+          // Volumen
+          volSlider.addEventListener('input', function(){
+            video.volume=parseFloat(this.value);
+            muteIcon.textContent=video.volume===0?'volume_off':'volume_up';
+          });
+
+          muteBtn.addEventListener('click', function(){
+            video.muted=!video.muted;
+            muteIcon.textContent=video.muted?'volume_off':'volume_up';
+            volSlider.value=video.muted?0:video.volume;
+          });
+
+          // Fullscreen
+          fsBtn.addEventListener('click', function(){
+            if(document.fullscreenElement) document.exitFullscreen();
+            else container.requestFullscreen();
+          });
+        })();
         </script>
       </div>
     </section>
@@ -391,23 +487,7 @@
       </div>
     </section>
 
-    <!-- ── RESULTADOS ────────────────────────────────────────────── -->
-    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FFF1F5]" id="resultado">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 reveal">
-        <div class="flex flex-col gap-3">
-          <span class="font-headline text-sm font-bold text-tertiary">01 / ESTRATEGIA</span>
-          <p class="font-body text-on-surface-variant leading-relaxed">Mapeo de puntos de fricción en territorios no autorizados y diseño de flujo de retención temprana.</p>
-        </div>
-        <div class="flex flex-col gap-3" style="transition-delay:0.1s">
-          <span class="font-headline text-sm font-bold text-tertiary">02 / INTERFAZ</span>
-          <p class="font-body text-on-surface-variant leading-relaxed">Arquitectura de información escalable para el despliegue internacional progresivo.</p>
-        </div>
-        <div class="flex flex-col gap-3" style="transition-delay:0.2s">
-          <span class="font-headline text-sm font-bold text-tertiary">03 / RESULTADO</span>
-          <p class="font-body text-on-surface-variant leading-relaxed">Incremento del 40% en suscripciones previas en mercados de lanzamiento diferido.</p>
-        </div>
-      </div>
-    </section>
+
 
     <!-- ── NEXT PROJECT ───────────────────────────────────────────── -->
     <a href="hyatt.html" class="flex items-center justify-between px-8 md:px-16 py-12 bg-black text-white hover:bg-primary transition-colors duration-500 group">
@@ -419,7 +499,7 @@
 
   <footer class="bg-black text-white px-8 md:px-16 py-8 flex justify-between items-center">
     <a href="index.html" class="font-headline font-black text-sm uppercase tracking-widest text-white/40 hover:text-white transition-colors">← Volver al portafolio</a>
-    <span class="font-label text-xs text-white/20 uppercase tracking-widest">© 2024 JESSICA SUÁREZ</span>
+    <span class="font-label text-xs text-white/20 uppercase tracking-widest">© 2026 JESSICA SUÁREZ</span>
   </footer>
 
   <script>
