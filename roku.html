@@ -53,42 +53,47 @@
       color:#9B8082; padding-top:6px;
     }
 
-    /* Lightbox */
-    .lb-img{ cursor:zoom-in; transition:opacity .3s,transform .3s; display:block; width:100%; }
-    .lb-img:hover{ opacity:.9; transform:scale(1.015); }
-    #lightbox{
-      display:none; position:fixed; inset:0;
-      background:rgba(0,0,0,.93); z-index:9999;
-      align-items:center; justify-content:center;
-      padding:20px; cursor:zoom-out;
+    /* Imágenes con lightbox */
+    .lb-img{
+      cursor:zoom-in;
+      transition:opacity .3s, transform .3s;
+      width:100%; height:100%;
+      object-fit:cover; display:block;
     }
-    #lightbox.open{ display:flex; }
-    #lightbox img{ max-width:90vw; max-height:90vh; object-fit:contain; animation:lbIn .25s cubic-bezier(.16,1,.3,1); }
-    @keyframes lbIn{ from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
-    #lb-close{
-      position:fixed; top:20px; right:28px;
-      color:#fff; font-size:40px; font-weight:300;
-      cursor:pointer; opacity:.6; transition:opacity .2s;
-      background:none; border:none; line-height:1; z-index:10000;
-    }
-    #lb-close:hover{ opacity:1; }
+    .lb-img:hover{ opacity:.9; transform:scale(1.02); }
 
-    /* Placeholder */
-    .img-ph{
-      background:#FFE3F6; display:flex; flex-direction:column;
-      align-items:center; justify-content:center; gap:8px; color:#FD8798;
-    }
-    .img-ph .material-symbols-outlined{ font-size:32px; }
-    .img-ph p{ font-size:9px; font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
+    /* Video wrapper */
+    .video-wrapper{ position:relative; padding-bottom:56.25%; height:0; overflow:hidden; }
+    .video-wrapper iframe{ position:absolute; top:0; left:0; width:100%; height:100%; }
   </style>
 </head>
 <body class="selection:bg-primary selection:text-white">
 
-  <!-- Lightbox -->
-  <div id="lightbox" onclick="lbClose()">
-    <button id="lb-close" onclick="lbClose()">×</button>
-    <img id="lb-img" src="" alt=""/>
+  <!-- Lightbox global -->
+  <div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;">
+    <button onclick="closeLightbox()" style="position:fixed;top:20px;right:28px;color:#fff;font-size:40px;font-weight:300;cursor:pointer;opacity:.6;background:none;border:none;line-height:1;z-index:10000;">×</button>
+    <img id="lightbox-img" src="" alt="" style="max-width:90vw;max-height:90vh;object-fit:contain;"/>
   </div>
+  <script>
+    function openLightbox(src){
+      document.getElementById('lightbox-img').src=src;
+      document.getElementById('lightbox').style.display='flex';
+      document.body.style.overflow='hidden';
+    }
+    function closeLightbox(){
+      document.getElementById('lightbox').style.display='none';
+      document.body.style.overflow='';
+    }
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeLightbox(); });
+    var _formats=['jpg','png','svg','webp','jpeg'];
+    function tryNextFormat(img){
+      var base=img.dataset.base||img.src.replace(/\.[^.]+$/,'');
+      var tried=img.dataset.tried?img.dataset.tried.split(','):[];
+      var next=_formats.find(function(f){return tried.indexOf(f)===-1;});
+      if(next){img.dataset.tried=tried.concat(next).join(',');img.src=base+'.'+next;}
+      else{img.style.display='none';}
+    }
+  </script>
 
   <!-- Nav -->
   <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md flex justify-between items-center px-8 md:px-12 py-5 border-b border-black/5">
@@ -108,53 +113,30 @@
     <a href="#hero"       class="w-2 h-2 rounded-full bg-primary scale-150 transition-transform"></a>
     <a href="#estrategia" class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
     <a href="#piezas"     class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
+    <a href="#videos"     class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
     <a href="#quote"      class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
   </div>
 
   <main class="pt-24">
 
     <!-- ══ HERO ══════════════════════════════════════════ -->
-    <section id="hero" style="
-      position:relative; width:100%; height:100vh;
-      overflow:hidden; display:flex; align-items:flex-end; padding-bottom:80px;
-    ">
-      <!-- 📸 IMAGEN HERO — sube imagenes/roku-hero.jpg -->
-      <img
-        alt="Roku Ads Manager hero"
-        src="imagenes/roku-hero.jpg" data-base="imagenes/roku-hero"
-        onerror="tryNextFormat(this)"
-        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;"
-      />
-      <!-- Overlay oscuro + gradiente -->
-      <div style="
-        position:absolute; inset:0;
-        background:linear-gradient(
-          to bottom,
-          rgba(0,0,0,0.3) 0%,
-          rgba(0,0,0,0.5) 40%,
-          rgba(0,0,0,0.75) 80%,
-          #FFF8FA 100%
-        );
-        pointer-events:none;
-      "></div>
-      <!-- Contenido encima -->
+    <section id="hero" style="position:relative;width:100%;height:100vh;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:80px;">
+      <img alt="Roku Ads Manager hero" src="imagenes/roku-hero.jpg" data-base="imagenes/roku-hero" onerror="tryNextFormat(this)"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;"/>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.5) 40%,rgba(0,0,0,0.75) 80%,#FFF8FA 100%);pointer-events:none;"></div>
       <div class="max-w-6xl mx-auto w-full px-8 md:px-16 relative z-10">
-
         <div class="flex items-center gap-4 mb-8 fade-up delay-1">
-          <span class="font-headline font-black text-xl tracking-tighter" style="color:#FA5E75;">ROKU</span>
+          <span class="font-headline font-black text-xl tracking-tighter" style="color:#fff;">ROKU</span>
           <span class="font-headline text-xs font-bold tracking-[0.25em] uppercase" style="color:rgba(255,255,255,0.6);">Ads Manager Strategy</span>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
           <div class="md:col-span-7">
-            <h1 class="font-headline text-5xl md:text-7xl font-black leading-[0.88] tracking-tighter mb-8 fade-up delay-2" style="color:#fff; text-shadow:0 2px 20px rgba(0,0,0,0.3);">
-              EL PODER DE<br/>
-              LA <span style="color:#FA5E75;" class="italic">ATENCIÓN</span><br/>
-              FINITA.
+            <h1 class="font-headline text-5xl md:text-7xl font-black leading-[0.88] tracking-tighter mb-8 fade-up delay-2" style="color:#fff;text-shadow:0 2px 20px rgba(0,0,0,0.3);">
+              EL PODER DE<br/>LA <span style="color:#FA5E75;" class="italic">ATENCIÓN</span><br/>FINITA.
             </h1>
             <p class="font-body text-base md:text-lg max-w-md leading-relaxed fade-up delay-3" style="color:rgba(255,255,255,0.8);">
               En plataformas como Roku, la atención es limitada y las decisiones son rápidas.
-              <span class="font-bold" style="text-decoration:underline; text-decoration-color:#FA5E75;">Cada pieza compite en segundos.</span>
+              <span class="font-bold" style="text-decoration:underline;text-decoration-color:#FA5E75;">Cada pieza compite en segundos.</span>
             </p>
           </div>
           <div class="md:col-span-5 md:text-right fade-up delay-3">
@@ -163,15 +145,13 @@
             <p class="font-headline text-xs font-bold uppercase tracking-widest mt-1" style="color:#FA5E75;">YEAR / 2026</p>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- ══ ESTRATEGIA — INSIGHT / DIRECCIÓN / CIERRE ═════ -->
+    <!-- ══ ESTRATEGIA ════════════════════════════════════ -->
     <section class="px-8 md:px-16 py-8" id="estrategia">
       <div class="max-w-6xl mx-auto">
 
-        <!-- INSIGHT -->
         <div class="section-row reveal">
           <span class="section-label">Insight</span>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
@@ -184,28 +164,26 @@
                 No buscábamos decorar, buscábamos irrumpir en la inercia del usuario.
               </p>
             </div>
+            <!-- Imagen insight -->
             <div class="aspect-[4/3] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <!--
-              📸 IMAGEN INSIGHT
-              Sube a imagenes/roku-insight.jpg
-              -->
-              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-insight.jpg" data-base="imagenes/roku-insight" alt="Insight" onclick="lbOpen(this.src)"
-                onerror="tryNextFormat(this)"/>
+              <img class="lb-img absolute inset-0" src="imagenes/roku-insight.jpg" data-base="imagenes/roku-insight"
+                alt="Insight" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-insight</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- DIRECCIÓN -->
         <div class="section-row reveal">
           <span class="section-label">Dirección</span>
           <p class="font-body text-lg leading-relaxed text-on-surface max-w-xl">
-            La creatividad debía ser inmediata, clara,
-            <span class="font-bold">difícil de ignorar.</span>
+            La creatividad debía ser inmediata, clara, <span class="font-bold">difícil de ignorar.</span>
             Un lenguaje visual que no pide permiso, sino que captura la mirada.
           </p>
         </div>
 
-        <!-- CIERRE -->
         <div class="section-row reveal">
           <span class="section-label">Cierre</span>
           <p class="font-body text-lg leading-relaxed text-on-surface max-w-xl">
@@ -224,12 +202,12 @@
         <div class="section-row reveal">
           <span class="section-label">Claridad</span>
           <div class="aspect-[16/9] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-            <!--
-            📸 IMAGEN CLARIDAD
-            Sube a imagenes/roku-claridad.jpg
-            -->
-            <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-claridad.jpg" data-base="imagenes/roku-claridad" alt="Claridad" onclick="lbOpen(this.src)"
-              onerror="tryNextFormat(this)"/>
+            <img class="lb-img absolute inset-0" src="imagenes/roku-claridad.jpg" data-base="imagenes/roku-claridad"
+              alt="Claridad" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+            <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+              <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+              <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-claridad</p>
+            </div>
           </div>
         </div>
 
@@ -237,12 +215,12 @@
         <div class="section-row reveal">
           <span class="section-label">Identificación</span>
           <div class="aspect-[16/9] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-            <!--
-            📸 IMAGEN IDENTIFICACIÓN
-            Sube a imagenes/roku-identificacion.jpg
-            -->
-            <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-identificacion.jpg" data-base="imagenes/roku-identificacion" alt="Identificación" onclick="lbOpen(this.src)"
-              onerror="tryNextFormat(this)"/>
+            <img class="lb-img absolute inset-0" src="imagenes/roku-identificacion.jpg" data-base="imagenes/roku-identificacion"
+              alt="Identificación" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+            <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+              <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+              <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-identificacion</p>
+            </div>
           </div>
         </div>
 
@@ -250,17 +228,21 @@
         <div class="section-row reveal">
           <span class="section-label">Sorpresa</span>
           <div class="grid grid-cols-2 gap-4">
-            <!--
-            📸 IMÁGENES SORPRESA
-            Sube a imagenes/roku-sorpresa1.jpg y roku-sorpresa2.jpg
-            -->
             <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-sorpresa1.jpg" data-base="imagenes/roku-sorpresa1" alt="Sorpresa 1" onclick="lbOpen(this.src)"
-                onerror="tryNextFormat(this)"/>
+              <img class="lb-img absolute inset-0" src="imagenes/roku-sorpresa1.jpg" data-base="imagenes/roku-sorpresa1"
+                alt="Sorpresa 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-sorpresa1</p>
+              </div>
             </div>
             <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-sorpresa2.jpg" data-base="imagenes/roku-sorpresa2" alt="Sorpresa 2" onclick="lbOpen(this.src)"
-                onerror="tryNextFormat(this)"/>
+              <img class="lb-img absolute inset-0" src="imagenes/roku-sorpresa2.jpg" data-base="imagenes/roku-sorpresa2"
+                alt="Sorpresa 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-sorpresa2</p>
+              </div>
             </div>
           </div>
         </div>
@@ -269,21 +251,82 @@
         <div class="section-row reveal">
           <span class="section-label">Contenido</span>
           <div class="grid grid-cols-2 gap-4">
-            <!--
-            📸 IMÁGENES CONTENIDO
-            Sube a imagenes/roku-contenido1.jpg y roku-contenido2.jpg
-            -->
             <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-contenido1.jpg" data-base="imagenes/roku-contenido1" alt="Contenido 1" onclick="lbOpen(this.src)"
-                onerror="tryNextFormat(this)"/>
+              <img class="lb-img absolute inset-0" src="imagenes/roku-contenido1.jpg" data-base="imagenes/roku-contenido1"
+                alt="Contenido 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-contenido1</p>
+              </div>
             </div>
             <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img w-full h-full object-cover relative z-10" src="imagenes/roku-contenido2.jpg" data-base="imagenes/roku-contenido2" alt="Contenido 2" onclick="lbOpen(this.src)"
-                onerror="tryNextFormat(this)"/>
+              <img class="lb-img absolute inset-0" src="imagenes/roku-contenido2.jpg" data-base="imagenes/roku-contenido2"
+                alt="Contenido 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-contenido2</p>
+              </div>
             </div>
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ══ VIDEOS ═════════════════════════════════════════ -->
+    <section class="px-8 md:px-16 py-20 bg-[#FFF8FA]" id="videos">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="mb-12 reveal">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-primary block mb-3">Reels</span>
+          <h2 class="font-headline text-3xl md:text-4xl font-black tracking-tighter text-on-surface">Piezas en movimiento</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <!-- Video 1 -->
+          <div class="reveal">
+            <p class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-4">Reel 01</p>
+            <!--
+            ════════════════════════════════════════════
+            🎥 VIDEO ROKU 1 — elige una opción:
+
+            YouTube:
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/TU_ID?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            Vimeo:
+            <div class="video-wrapper">
+              <iframe src="https://player.vimeo.com/video/TU_ID" frameborder="0" allowfullscreen></iframe>
+            </div>
+            ════════════════════════════════════════════
+            -->
+            <div class="video-wrapper bg-[#FFE3F6] flex items-center justify-center" style="display:flex;align-items:center;justify-content:center;">
+              <div style="position:absolute;display:flex;flex-direction:column;align-items:center;gap:8px;color:#FD8798;pointer-events:none;">
+                <span class="material-symbols-outlined" style="font-size:40px;">play_circle</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">Reemplaza con tu video</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video 2 -->
+          <div class="reveal" style="transition-delay:.15s">
+            <p class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-4">Reel 02</p>
+            <!--
+            ════════════════════════════════════════════
+            🎥 VIDEO ROKU 2 — mismo proceso que Video 1
+            ════════════════════════════════════════════
+            -->
+            <div class="video-wrapper bg-[#FFE3F6] flex items-center justify-center" style="display:flex;align-items:center;justify-content:center;">
+              <div style="position:absolute;display:flex;flex-direction:column;align-items:center;gap:8px;color:#FD8798;pointer-events:none;">
+                <span class="material-symbols-outlined" style="font-size:40px;">play_circle</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">Reemplaza con tu video</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -316,25 +359,10 @@
   </footer>
 
   <script>
-    function lbOpen(src){ document.getElementById('lb-img').src=src; document.getElementById('lightbox').classList.add('open'); document.body.style.overflow='hidden'; }
-    function lbClose(){ document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape') lbClose(); });
-    const obs=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } }); },{threshold:.1});
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+    },{threshold:.1});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-  </script>
-  <script>
-    var _formats = ['jpg','png','svg','webp','jpeg'];
-    function tryNextFormat(img){
-      var base = img.dataset.base || img.src.replace(/\.[^.]+$/, '');
-      var tried = img.dataset.tried ? img.dataset.tried.split(',') : [];
-      var next = _formats.find(function(f){ return tried.indexOf(f) === -1; });
-      if(next){
-        img.dataset.tried = tried.concat(next).join(',');
-        img.src = base + '.' + next;
-      } else {
-        img.style.display = 'none';
-      }
-    }
   </script>
 </body>
 </html>
