@@ -347,33 +347,6 @@
             <button id="lightbox-close" onclick="closeLightbox()">×</button>
             <img id="lightbox-img" src="" alt=""/>
           </div>
-
-          <div class="grid grid-cols-2 gap-4">
-            <!-- Imagen 1 -->
-            <div class="h-52 md:h-64 overflow-hidden relative">
-              <img
-                alt="Pantalla sin acceso RCN"
-                class="lightbox-img w-full h-full object-cover"
-                src="imagenes/rcn-contexto1.jpg" data-base="imagenes/rcn-contexto1"
-                onclick="openLightbox(this.src)"
-                onerror="this.style.background='#111';"
-              />
-            </div>
-            <!-- Imagen 2 -->
-            <div class="h-52 md:h-64 overflow-hidden relative">
-              <img
-                alt="¡Oe llave! — RCN Total"
-                class="lightbox-img w-full h-full object-cover"
-                src="imagenes/rcn-contexto2.jpg" data-base="imagenes/rcn-contexto2"
-                onclick="openLightbox(this.src)"
-                onerror="this.parentElement.style.background='#FFE3F6';"
-              />
-              <div class="absolute bottom-0 left-0 right-0 p-4" style="background:linear-gradient(to top,rgba(0,0,0,0.7),transparent); pointer-events:none;">
-                <span class="font-headline text-white text-xs uppercase tracking-widest font-bold">Experiencia alternativa</span>
-              </div>
-            </div>
-          </div>
-
           <script>
             function openLightbox(src){
               document.getElementById('lightbox-img').src = src;
@@ -397,11 +370,48 @@
       <div class="max-w-7xl mx-auto">
 
         <!-- Título sección -->
-        <div class="mb-16 reveal">
+        <div class="mb-12 reveal">
           <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-primary block mb-3">Piezas / Comunicación</span>
           <h2 class="font-headline text-4xl md:text-5xl font-black tracking-tighter text-on-surface">
             Convertir una barrera en<br/>una oportunidad de conexión.
           </h2>
+        </div>
+
+        <!-- IMÁGENES CONTEXTO debajo del título -->
+        <div class="mb-16 reveal">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="h-52 md:h-64 overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
+              <img
+                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                src="imagenes/rcn-contexto1.jpg" data-base="imagenes/rcn-contexto1"
+                alt="Pantalla sin acceso RCN"
+                onclick="openLightbox(this.src)"
+                onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;"
+              />
+              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+                <span class="material-symbols-outlined text-4xl">tv_off</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-contexto1.jpg</p>
+              </div>
+            </div>
+            <div class="h-52 md:h-64 overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
+              <img
+                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                src="imagenes/rcn-contexto2.jpg" data-base="imagenes/rcn-contexto2"
+                alt="Experiencia alternativa RCN"
+                onclick="openLightbox(this.src)"
+                onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;"
+              />
+              <div class="absolute bottom-0 left-0 right-0 p-3 z-20" style="background:linear-gradient(to top,rgba(0,0,0,0.6),transparent); pointer-events:none;">
+                <span class="font-headline text-white text-xs uppercase tracking-widest font-bold">Experiencia alternativa</span>
+              </div>
+              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+                <span class="material-symbols-outlined text-4xl">image</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-contexto2.jpg</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- MAILINGS — 2 imágenes verticales -->
