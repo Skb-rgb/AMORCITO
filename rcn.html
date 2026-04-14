@@ -84,6 +84,27 @@
 </head>
 <body class="selection:bg-primary selection:text-white">
 
+  <!-- Lightbox global -->
+  <div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;">
+    <button id="lightbox-close" onclick="closeLightbox()" style="position:fixed;top:20px;right:28px;color:#fff;font-size:40px;font-weight:300;cursor:pointer;opacity:.6;background:none;border:none;line-height:1;z-index:10000;">×</button>
+    <img id="lightbox-img" src="" alt="" style="max-width:90vw;max-height:90vh;object-fit:contain;"/>
+  </div>
+  <script>
+    function openLightbox(src){
+      var lb = document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src = src;
+      lb.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(){
+      document.getElementById('lightbox').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
   <!-- Nav -->
   <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md flex justify-between items-center px-8 md:px-12 py-5 border-b border-black/5">
     <a href="index.html" class="flex items-center gap-3 text-primary font-headline font-black text-xl uppercase tracking-tighter hover:opacity-70 transition-opacity">
@@ -340,28 +361,9 @@
         </div>
         <div class="md:col-span-7 flex flex-col gap-10 reveal" style="transition-delay:0.15s">
           <p class="font-body text-lg md:text-xl leading-relaxed text-on-surface-variant max-w-2xl">
-            La plataforma no estaba disponible en todos los territorios. Y lo que pasaba antes de entrar… no estaba diseñado. La experiencia no empieza cuando accedes.
-             Empieza desde el primer contacto.
+            La plataforma no estaba disponible en todos los territorios. Y lo que pasaba antes de entrar… no estaba diseñado.
           </p>
-          <!-- Lightbox overlay -->
-          <div id="lightbox" onclick="closeLightbox()">
-            <button id="lightbox-close" onclick="closeLightbox()">×</button>
-            <img id="lightbox-img" src="" alt=""/>
-          </div>
-          <script>
-            function openLightbox(src){
-              document.getElementById('lightbox-img').src = src;
-              document.getElementById('lightbox').classList.add('open');
-              document.body.style.overflow = 'hidden';
-            }
-            function closeLightbox(){
-              document.getElementById('lightbox').classList.remove('open');
-              document.body.style.overflow = '';
-            }
-            document.addEventListener('keydown', function(e){
-              if(e.key === 'Escape') closeLightbox();
-            });
-          </script>
+
         </div>
       </div>
     </section>
@@ -383,31 +385,31 @@
           <div class="grid grid-cols-2 gap-4">
             <div class="h-52 md:h-64 overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-contexto1.jpg" data-base="imagenes/rcn-contexto1"
                 alt="Pantalla sin acceso RCN"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
-                style="cursor:zoom-in;"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
-              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
                 <span class="material-symbols-outlined text-4xl">tv_off</span>
                 <p class="font-headline text-xs uppercase tracking-widest">rcn-contexto1.jpg</p>
               </div>
             </div>
             <div class="h-52 md:h-64 overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-contexto2.jpg" data-base="imagenes/rcn-contexto2"
                 alt="Experiencia alternativa RCN"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
-                style="cursor:zoom-in;"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
               <div class="absolute bottom-0 left-0 right-0 p-3 z-20" style="background:linear-gradient(to top,rgba(0,0,0,0.6),transparent); pointer-events:none;">
                 <span class="font-headline text-white text-xs uppercase tracking-widest font-bold">Experiencia alternativa</span>
               </div>
-              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
                 <span class="material-symbols-outlined text-4xl">image</span>
                 <p class="font-headline text-xs uppercase tracking-widest">rcn-contexto2.jpg</p>
               </div>
@@ -423,14 +425,14 @@
             <!-- Mailing 1 -->
             <div class="aspect-[9/16] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-mailing1.jpg" data-base="imagenes/rcn-mailing1"
                 alt="Mailing RCN 1"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
-                style="cursor:zoom-in;"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
-              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
                 <span class="material-symbols-outlined text-4xl">mail</span>
                 <p class="font-headline text-xs uppercase tracking-widest">rcn-mailing1.jpg</p>
               </div>
@@ -439,14 +441,14 @@
             <!-- Mailing 2 -->
             <div class="aspect-[9/16] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-mailing2.jpg" data-base="imagenes/rcn-mailing2"
                 alt="Mailing RCN 2"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
-                style="cursor:zoom-in;"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
-              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
                 <span class="material-symbols-outlined text-4xl">mail</span>
                 <p class="font-headline text-xs uppercase tracking-widest">rcn-mailing2.jpg</p>
               </div>
@@ -463,14 +465,14 @@
             <!-- Push 1 -->
             <div class="aspect-video overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-push1.jpg" data-base="imagenes/rcn-push1"
                 alt="Push Notification RCN 1"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
-                style="cursor:zoom-in;"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
-              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
                 <span class="material-symbols-outlined text-4xl">notifications</span>
                 <p class="font-headline text-xs uppercase tracking-widest">rcn-push1.jpg</p>
               </div>
@@ -479,14 +481,14 @@
             <!-- Push 2 -->
             <div class="aspect-video overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img w-full h-full object-cover absolute inset-0 z-10"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-push2.jpg" data-base="imagenes/rcn-push2"
                 alt="Push Notification RCN 2"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
-                style="cursor:zoom-in;"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
-              <div class="flex flex-col items-center gap-2 text-[#FD8798] z-0">
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
                 <span class="material-symbols-outlined text-4xl">notifications</span>
                 <p class="font-headline text-xs uppercase tracking-widest">rcn-push2.jpg</p>
               </div>
