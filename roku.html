@@ -56,11 +56,11 @@
     /* Imágenes con lightbox */
     .project-frame{
       position:relative;
-      overflow:hidden;
-      background:#f7eaee;
+      overflow:visible;
+      background:transparent;
       border:none;
-      box-shadow:0 18px 45px rgba(77,70,71,0.06);
-      padding:clamp(26px,4vw,42px);
+      box-shadow:none;
+      padding:0;
     }
     .project-frame::after{ content:none; }
     .project-frame.tall-card{ min-height:560px; }
@@ -81,83 +81,148 @@
       z-index:2;
       max-width:100%;
       max-height:100%;
-      filter:drop-shadow(0 12px 28px rgba(34,26,28,0.12));
+      filter:none;
     }
     .lb-img:hover{ opacity:.98; transform:scale(1.01); }
-
-    /* Video wrapper */
-    .video-wrapper{
+    /* Custom video player */
+    .custom-video{
       position:relative;
+      width:100%;
       aspect-ratio:16 / 9;
+      background:#000;
       overflow:hidden;
-      background:linear-gradient(180deg,#fdf4f7 0%,#ffe8f0 100%);
       border:1px solid rgba(250,94,117,0.12);
       box-shadow:0 24px 60px rgba(77,70,71,0.08);
     }
-    .video-wrapper video,
-    .video-wrapper iframe{
-      position:absolute;
-      top:0;
-      left:0;
+    .custom-video video{
       width:100%;
       height:100%;
-    }
-    .video-wrapper video{
+      display:block;
       object-fit:cover;
-      background:#f7dce4;
+      background:#000;
     }
-    .video-toggle{
+    .video-ui{
       position:absolute;
-      left:18px;
-      bottom:18px;
-      z-index:3;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      border:none;
-      background:rgba(255,255,255,0.88);
-      color:#4D4647;
-      padding:10px 16px;
+      left:0;
+      right:0;
+      bottom:0;
+      padding:14px;
+      background:linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,.28), transparent);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      transition:opacity .25s ease;
+    }
+    .video-progress{
+      -webkit-appearance:none;
+      appearance:none;
+      width:100%;
+      height:4px;
+      background:rgba(255,255,255,.25);
+      outline:none;
+      cursor:pointer;
+    }
+    .video-progress::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      appearance:none;
+      width:14px;
+      height:14px;
       border-radius:999px;
+      background:#FA5E75;
+      border:none;
+    }
+    .video-controls{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .video-controls-left,
+    .video-controls-right{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .video-btn{
+      width:40px;
+      height:40px;
+      border:none;
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition:background .2s ease, transform .2s ease;
+      backdrop-filter:blur(8px);
+    }
+    .video-btn:hover{
+      background:rgba(255,255,255,.2);
+      transform:translateY(-1px);
+    }
+    .video-time{
       font-family:'Space Grotesk',sans-serif;
       font-size:11px;
       font-weight:700;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      box-shadow:0 10px 30px rgba(77,70,71,0.14);
-      backdrop-filter:blur(10px);
+      letter-spacing:.08em;
+      color:rgba(255,255,255,.86);
+      min-width:92px;
     }
-    .video-toggle:hover{ background:#fff; }
-    .video-status{
-      position:absolute;
-      right:18px;
-      bottom:18px;
-      z-index:3;
-      padding:8px 12px;
+    .video-volume{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .video-volume input[type="range"]{
+      -webkit-appearance:none;
+      appearance:none;
+      width:90px;
+      height:4px;
+      background:rgba(255,255,255,.25);
+      cursor:pointer;
+    }
+    .video-volume input[type="range"]::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      appearance:none;
+      width:12px;
+      height:12px;
       border-radius:999px;
-      background:rgba(77,70,71,0.58);
-      color:#fff;
-      font-family:'Space Grotesk',sans-serif;
-      font-size:10px;
-      font-weight:700;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      pointer-events:none;
+      background:#FA5E75;
+      border:none;
     }
-    .video-empty{
+    .video-center-play{
       position:absolute;
       inset:0;
-      z-index:1;
       display:flex;
-      flex-direction:column;
       align-items:center;
       justify-content:center;
-      gap:10px;
-      color:#FD8798;
-      text-align:center;
-      padding:24px;
+      pointer-events:none;
     }
-    .video-wrapper.has-video .video-empty{ display:none; }
+    .video-center-play button{
+      width:74px;
+      height:74px;
+      border:none;
+      border-radius:999px;
+      background:rgba(0,0,0,.42);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      backdrop-filter:blur(8px);
+      box-shadow:0 10px 30px rgba(0,0,0,.28);
+      pointer-events:auto;
+      cursor:pointer;
+      transition:transform .2s ease, background .2s ease, opacity .2s ease;
+    }
+    .video-center-play button:hover{
+      transform:scale(1.06);
+      background:rgba(0,0,0,.56);
+    }
+    .custom-video.playing .video-center-play{
+      opacity:0;
+      pointer-events:none;
+    }
     @media(max-width:768px){
       .project-frame{
         padding:20px;
@@ -268,10 +333,6 @@
             <div class="project-frame aspect-[4/3] flex items-center justify-center">
               <img class="lb-img" src="imagenes/roku-insight.jpg" 
                 alt="Insight" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
-              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
-                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
-                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-insight</p>
-              </div>
             </div>
           </div>
         </div>
@@ -304,10 +365,6 @@
           <div class="project-frame aspect-[16/9] flex items-center justify-center">
             <img class="lb-img" src="imagenes/roku-claridad.jpg" data-base="imagenes/roku-claridad"
               alt="Claridad" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
-            <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
-              <span class="material-symbols-outlined" style="font-size:32px;">image</span>
-              <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-claridad</p>
-            </div>
           </div>
         </div>
 
@@ -317,10 +374,6 @@
           <div class="project-frame aspect-[16/9] flex items-center justify-center">
             <img class="lb-img" src="imagenes/roku-identificacion.jpg" data-base="imagenes/roku-identificacion"
               alt="Identificación" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
-            <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
-              <span class="material-symbols-outlined" style="font-size:32px;">image</span>
-              <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-identificacion</p>
-            </div>
           </div>
         </div>
 
@@ -331,18 +384,10 @@
             <div class="project-frame tall-card aspect-[3/4] flex items-center justify-center">
               <img class="lb-img" src="imagenes/roku-sorpresa1.jpg" data-base="imagenes/roku-sorpresa1"
                 alt="Sorpresa 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
-              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
-                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
-                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-sorpresa1</p>
-              </div>
             </div>
             <div class="project-frame tall-card aspect-[3/4] flex items-center justify-center">
               <img class="lb-img" src="imagenes/roku-sorpresa2.jpg" data-base="imagenes/roku-sorpresa2"
                 alt="Sorpresa 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
-              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
-                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
-                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-sorpresa2</p>
-              </div>
             </div>
           </div>
         </div>
@@ -354,18 +399,10 @@
             <div class="project-frame tall-card aspect-[3/4] flex items-center justify-center">
               <img class="lb-img" src="imagenes/roku-contenido1.jpg" data-base="imagenes/roku-contenido1"
                 alt="Contenido 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
-              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
-                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
-                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-contenido1</p>
-              </div>
             </div>
             <div class="project-frame tall-card aspect-[3/4] flex items-center justify-center">
               <img class="lb-img" src="imagenes/roku-contenido2.jpg" data-base="imagenes/roku-contenido2"
                 alt="Contenido 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
-              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
-                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
-                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-contenido2</p>
-              </div>
             </div>
           </div>
         </div>
@@ -402,18 +439,45 @@
             </div>
             ════════════════════════════════════════════
             -->
-            <div class="video-wrapper has-video" data-video-player>
-              <video playsinline preload="metadata" controls poster="imagenes/roku-claridad.jpg">
+            <div class="custom-video" data-video-player>
+              <video preload="metadata" playsinline poster="imagenes/roku-claridad.jpg">
                 <source src="videos/roku-reel-01.mp4" type="video/mp4"/>
+                Tu navegador no soporta video HTML5.
               </video>
-              <button class="video-toggle" type="button" data-video-toggle aria-label="Reproducir video">
-                <span class="material-symbols-outlined">play_arrow</span>
-                <span>Play</span>
-              </button>
-              <span class="video-status">Reel 01</span>
-              <div class="video-empty">
-                <span class="material-symbols-outlined" style="font-size:40px;">play_circle</span>
-                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">Agrega videos/roku-reel-01.mp4</p>
+
+              <div class="video-center-play">
+                <button type="button" class="video-toggle-center" aria-label="Reproducir video">
+                  <span class="material-symbols-outlined" style="font-size:36px;">play_arrow</span>
+                </button>
+              </div>
+
+              <div class="video-ui">
+                <input class="video-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso del video"/>
+
+                <div class="video-controls">
+                  <div class="video-controls-left">
+                    <button type="button" class="video-btn video-toggle" aria-label="Play / Pause">
+                      <span class="material-symbols-outlined">play_arrow</span>
+                    </button>
+
+                    <div class="video-time">
+                      <span class="video-current">00:00</span> / <span class="video-duration">00:00</span>
+                    </div>
+                  </div>
+
+                  <div class="video-controls-right">
+                    <div class="video-volume">
+                      <button type="button" class="video-btn video-mute" aria-label="Mute / Unmute">
+                        <span class="material-symbols-outlined">volume_up</span>
+                      </button>
+                      <input class="video-volume-range" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen"/>
+                    </div>
+
+                    <button type="button" class="video-btn video-fullscreen" aria-label="Pantalla completa">
+                      <span class="material-symbols-outlined">fullscreen</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -426,18 +490,45 @@
             🎥 VIDEO ROKU 2 — mismo proceso que Video 1
             ════════════════════════════════════════════
             -->
-            <div class="video-wrapper has-video" data-video-player>
-              <video playsinline preload="metadata" controls poster="imagenes/roku-identificacion.jpg">
+            <div class="custom-video" data-video-player>
+              <video preload="metadata" playsinline poster="imagenes/roku-identificacion.jpg">
                 <source src="videos/roku-reel-02.mp4" type="video/mp4"/>
+                Tu navegador no soporta video HTML5.
               </video>
-              <button class="video-toggle" type="button" data-video-toggle aria-label="Reproducir video">
-                <span class="material-symbols-outlined">play_arrow</span>
-                <span>Play</span>
-              </button>
-              <span class="video-status">Reel 02</span>
-              <div class="video-empty">
-                <span class="material-symbols-outlined" style="font-size:40px;">play_circle</span>
-                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">Agrega videos/roku-reel-02.mp4</p>
+
+              <div class="video-center-play">
+                <button type="button" class="video-toggle-center" aria-label="Reproducir video">
+                  <span class="material-symbols-outlined" style="font-size:36px;">play_arrow</span>
+                </button>
+              </div>
+
+              <div class="video-ui">
+                <input class="video-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso del video"/>
+
+                <div class="video-controls">
+                  <div class="video-controls-left">
+                    <button type="button" class="video-btn video-toggle" aria-label="Play / Pause">
+                      <span class="material-symbols-outlined">play_arrow</span>
+                    </button>
+
+                    <div class="video-time">
+                      <span class="video-current">00:00</span> / <span class="video-duration">00:00</span>
+                    </div>
+                  </div>
+
+                  <div class="video-controls-right">
+                    <div class="video-volume">
+                      <button type="button" class="video-btn video-mute" aria-label="Mute / Unmute">
+                        <span class="material-symbols-outlined">volume_up</span>
+                      </button>
+                      <input class="video-volume-range" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen"/>
+                    </div>
+
+                    <button type="button" class="video-btn video-fullscreen" aria-label="Pantalla completa">
+                      <span class="material-symbols-outlined">fullscreen</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -476,44 +567,109 @@
     },{threshold:.1});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-    document.querySelectorAll('[data-video-player]').forEach(function(player){
-      var video=player.querySelector('video');
-      var toggle=player.querySelector('[data-video-toggle]');
-      var icon=toggle.querySelector('.material-symbols-outlined');
-      var label=toggle.querySelector('span:last-child');
-      var emptyState=player.querySelector('.video-empty');
+    function formatTime(seconds){
+      if(isNaN(seconds)) return "00:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
 
-      function syncButton(){
-        var isPaused=video.paused || video.ended;
-        icon.textContent=isPaused?'play_arrow':'pause';
-        label.textContent=isPaused?'Play':'Pause';
-        toggle.setAttribute('aria-label',isPaused?'Reproducir video':'Pausar video');
+    document.querySelectorAll('[data-video-player]').forEach(player => {
+      const video = player.querySelector('video');
+      const toggleBtn = player.querySelector('.video-toggle');
+      const centerBtn = player.querySelector('.video-toggle-center');
+      const toggleIcon = toggleBtn.querySelector('.material-symbols-outlined');
+      const progress = player.querySelector('.video-progress');
+      const current = player.querySelector('.video-current');
+      const duration = player.querySelector('.video-duration');
+      const muteBtn = player.querySelector('.video-mute');
+      const muteIcon = muteBtn.querySelector('.material-symbols-outlined');
+      const volumeRange = player.querySelector('.video-volume-range');
+      const fullscreenBtn = player.querySelector('.video-fullscreen');
+
+      function updatePlayUI(){
+        const isPlaying = !video.paused && !video.ended;
+        player.classList.toggle('playing', isPlaying);
+        toggleIcon.textContent = isPlaying ? 'pause' : 'play_arrow';
       }
 
-      toggle.addEventListener('click',function(){
-        if(video.paused || video.ended){ video.play(); }
-        else{ video.pause(); }
+      function updateTimeUI(){
+        current.textContent = formatTime(video.currentTime);
+        duration.textContent = formatTime(video.duration);
+        const value = video.duration ? (video.currentTime / video.duration) * 100 : 0;
+        progress.value = value;
+      }
+
+      function updateVolumeUI(){
+        if(video.muted || video.volume === 0){
+          muteIcon.textContent = 'volume_off';
+        } else if(video.volume < 0.5){
+          muteIcon.textContent = 'volume_down';
+        } else {
+          muteIcon.textContent = 'volume_up';
+        }
+      }
+
+      function togglePlay(){
+        if(video.paused){
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
+
+      toggleBtn.addEventListener('click', togglePlay);
+      centerBtn.addEventListener('click', togglePlay);
+      video.addEventListener('click', togglePlay);
+
+      video.addEventListener('play', updatePlayUI);
+      video.addEventListener('pause', updatePlayUI);
+      video.addEventListener('ended', updatePlayUI);
+
+      video.addEventListener('loadedmetadata', () => {
+        duration.textContent = formatTime(video.duration);
+        updateTimeUI();
       });
 
-      video.addEventListener('click',function(){
-        if(video.paused || video.ended){ video.play(); }
-        else{ video.pause(); }
+      video.addEventListener('timeupdate', updateTimeUI);
+
+      progress.addEventListener('input', () => {
+        if(video.duration){
+          video.currentTime = (progress.value / 100) * video.duration;
+        }
       });
 
-      ['play','pause','ended'].forEach(function(eventName){
-        video.addEventListener(eventName,syncButton);
+      volumeRange.addEventListener('input', () => {
+        video.volume = parseFloat(volumeRange.value);
+        video.muted = video.volume === 0;
+        updateVolumeUI();
       });
 
-      video.addEventListener('loadeddata',function(){
-        player.classList.add('has-video');
+      muteBtn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        if(!video.muted && video.volume === 0){
+          video.volume = 1;
+          volumeRange.value = 1;
+        }
+        if(video.muted){
+          volumeRange.value = 0;
+        } else {
+          volumeRange.value = video.volume;
+        }
+        updateVolumeUI();
       });
 
-      video.addEventListener('error',function(){
-        player.classList.remove('has-video');
-        emptyState.style.display='flex';
+      fullscreenBtn.addEventListener('click', async () => {
+        if(!document.fullscreenElement){
+          await player.requestFullscreen();
+        } else {
+          await document.exitFullscreen();
+        }
       });
 
-      syncButton();
+      updatePlayUI();
+      updateVolumeUI();
+      updateTimeUI();
     });
   </script>
 </body>
