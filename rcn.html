@@ -39,10 +39,8 @@
     /* Lightbox */
     .gallery-frame{
       position:relative;
-      overflow:hidden;
+      overflow:visible;
       background:transparent;
-      border:1px solid rgba(250,94,117,0.16);
-      box-shadow:0 18px 45px rgba(77,70,71,0.08);
     }
     .gallery-frame.vertical-frame{
       max-width:420px;
@@ -53,10 +51,12 @@
       transition: transform 0.3s ease, opacity 0.3s ease;
       display:block;
       width:100%;
-      height:100%;
-      object-fit:contain;
+      height:auto;
+      object-fit:initial;
       object-position:center;
       background:transparent;
+      border:1px solid rgba(250,94,117,0.16);
+      box-shadow:0 18px 45px rgba(77,70,71,0.08);
     }
     .lightbox-img:hover { opacity: 0.96; transform: scale(1.01); }
     #lightbox {
@@ -411,7 +411,7 @@
         <!-- IMÁGENES CONTEXTO debajo del título -->
         <div class="mb-16 reveal">
           <div class="grid grid-cols-2 gap-4">
-            <div class="gallery-frame h-52 md:h-64 flex items-center justify-center">
+            <div class="gallery-frame">
               <img
                 class="lightbox-img"
                 src="imagenes/rcn-contexto1.jpg" data-base="imagenes/rcn-contexto1"
@@ -420,7 +420,7 @@
                 onerror="tryNextFormat(this)"
               />
             </div>
-            <div class="gallery-frame h-52 md:h-64 flex items-center justify-center">
+            <div class="gallery-frame">
               <img
                 class="lightbox-img"
                 src="imagenes/rcn-contexto2.jpg" data-base="imagenes/rcn-contexto2"
@@ -428,9 +428,6 @@
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
               />
-              <div class="absolute bottom-0 left-0 right-0 p-3 z-20" style="background:linear-gradient(to top,rgba(0,0,0,0.6),transparent); pointer-events:none;">
-                <span class="font-headline text-white text-xs uppercase tracking-widest font-bold">Experiencia alternativa</span>
-              </div>
             </div>
           </div>
         </div>
@@ -451,7 +448,7 @@
           <div class="grid grid-cols-2 gap-6">
 
             <!-- Mailing 1 -->
-            <div class="gallery-frame vertical-frame aspect-[9/16] flex items-center justify-center">
+            <div class="gallery-frame vertical-frame">
               <img
                 class="lightbox-img"
                 src="imagenes/rcn-mailing1.jpg" data-base="imagenes/rcn-mailing1"
@@ -462,7 +459,7 @@
             </div>
 
             <!-- Mailing 2 -->
-            <div class="gallery-frame vertical-frame aspect-[9/16] flex items-center justify-center">
+            <div class="gallery-frame vertical-frame">
               <img
                 class="lightbox-img"
                 src="imagenes/rcn-mailing2.jpg" data-base="imagenes/rcn-mailing2"
@@ -481,7 +478,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <!-- Push 1 -->
-            <div class="gallery-frame aspect-video flex items-center justify-center">
+            <div class="gallery-frame">
               <img
                 class="lightbox-img"
                 src="imagenes/rcn-push1.jpg" data-base="imagenes/rcn-push1"
@@ -492,7 +489,7 @@
             </div>
 
             <!-- Push 2 -->
-            <div class="gallery-frame aspect-video flex items-center justify-center">
+            <div class="gallery-frame">
               <img
                 class="lightbox-img"
                 src="imagenes/rcn-push2.jpg" data-base="imagenes/rcn-push2"
