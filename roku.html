@@ -54,17 +54,117 @@
     }
 
     /* Imágenes con lightbox */
+    .project-frame{
+      position:relative;
+      overflow:hidden;
+      background:#f7eaee;
+      border:none;
+      box-shadow:0 18px 45px rgba(77,70,71,0.06);
+      padding:clamp(26px,4vw,42px);
+    }
+    .project-frame::after{ content:none; }
+    .project-frame.tall-card{ min-height:560px; }
+    .project-grid-vertical{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:20px;
+    }
     .lb-img{
       cursor:zoom-in;
       transition:opacity .3s, transform .3s;
-      width:100%; height:100%;
-      object-fit:cover; display:block;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+      display:block;
+      position:relative;
+      z-index:2;
+      max-width:100%;
+      max-height:100%;
+      filter:drop-shadow(0 12px 28px rgba(34,26,28,0.12));
     }
-    .lb-img:hover{ opacity:.9; transform:scale(1.02); }
+    .lb-img:hover{ opacity:.98; transform:scale(1.01); }
 
     /* Video wrapper */
-    .video-wrapper{ position:relative; padding-bottom:56.25%; height:0; overflow:hidden; }
-    .video-wrapper iframe{ position:absolute; top:0; left:0; width:100%; height:100%; }
+    .video-wrapper{
+      position:relative;
+      aspect-ratio:16 / 9;
+      overflow:hidden;
+      background:linear-gradient(180deg,#fdf4f7 0%,#ffe8f0 100%);
+      border:1px solid rgba(250,94,117,0.12);
+      box-shadow:0 24px 60px rgba(77,70,71,0.08);
+    }
+    .video-wrapper video,
+    .video-wrapper iframe{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+    }
+    .video-wrapper video{
+      object-fit:cover;
+      background:#f7dce4;
+    }
+    .video-toggle{
+      position:absolute;
+      left:18px;
+      bottom:18px;
+      z-index:3;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:none;
+      background:rgba(255,255,255,0.88);
+      color:#4D4647;
+      padding:10px 16px;
+      border-radius:999px;
+      font-family:'Space Grotesk',sans-serif;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      box-shadow:0 10px 30px rgba(77,70,71,0.14);
+      backdrop-filter:blur(10px);
+    }
+    .video-toggle:hover{ background:#fff; }
+    .video-status{
+      position:absolute;
+      right:18px;
+      bottom:18px;
+      z-index:3;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(77,70,71,0.58);
+      color:#fff;
+      font-family:'Space Grotesk',sans-serif;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      pointer-events:none;
+    }
+    .video-empty{
+      position:absolute;
+      inset:0;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      color:#FD8798;
+      text-align:center;
+      padding:24px;
+    }
+    .video-wrapper.has-video .video-empty{ display:none; }
+    @media(max-width:768px){
+      .project-frame{
+        padding:20px;
+      }
+      .project-frame.tall-card{ min-height:460px; }
+      .project-grid-vertical{ grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body class="selection:bg-primary selection:text-white">
@@ -165,9 +265,9 @@
               </p>
             </div>
             <!-- Imagen insight -->
-            <div class="aspect-[4/3] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img absolute inset-0" src="imagenes/roku-insight.jpg" data-base="imagenes/roku-insight"
-                alt="Insight" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+            <div class="project-frame aspect-[4/3] flex items-center justify-center">
+              <img class="lb-img" src="imagenes/roku-insight.jpg" data-base="imagenes/roku-insight"
+                alt="Insight" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
               <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
                 <span class="material-symbols-outlined" style="font-size:32px;">image</span>
                 <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-insight</p>
@@ -201,9 +301,9 @@
         <!-- CLARIDAD -->
         <div class="section-row reveal">
           <span class="section-label">Claridad</span>
-          <div class="aspect-[16/9] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-            <img class="lb-img absolute inset-0" src="imagenes/roku-claridad.jpg" data-base="imagenes/roku-claridad"
-              alt="Claridad" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+          <div class="project-frame aspect-[16/9] flex items-center justify-center">
+            <img class="lb-img" src="imagenes/roku-claridad.jpg" data-base="imagenes/roku-claridad"
+              alt="Claridad" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
             <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
               <span class="material-symbols-outlined" style="font-size:32px;">image</span>
               <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-claridad</p>
@@ -214,9 +314,9 @@
         <!-- IDENTIFICACIÓN -->
         <div class="section-row reveal">
           <span class="section-label">Identificación</span>
-          <div class="aspect-[16/9] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-            <img class="lb-img absolute inset-0" src="imagenes/roku-identificacion.jpg" data-base="imagenes/roku-identificacion"
-              alt="Identificación" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+          <div class="project-frame aspect-[16/9] flex items-center justify-center">
+            <img class="lb-img" src="imagenes/roku-identificacion.jpg" data-base="imagenes/roku-identificacion"
+              alt="Identificación" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
             <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
               <span class="material-symbols-outlined" style="font-size:32px;">image</span>
               <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-identificacion</p>
@@ -227,18 +327,18 @@
         <!-- SORPRESA — 2 imágenes -->
         <div class="section-row reveal">
           <span class="section-label">Sorpresa</span>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img absolute inset-0" src="imagenes/roku-sorpresa1.jpg" data-base="imagenes/roku-sorpresa1"
-                alt="Sorpresa 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+          <div class="project-grid-vertical">
+            <div class="project-frame tall-card aspect-[3/4] flex items-center justify-center">
+              <img class="lb-img" src="imagenes/roku-sorpresa1.jpg" data-base="imagenes/roku-sorpresa1"
+                alt="Sorpresa 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
               <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
                 <span class="material-symbols-outlined" style="font-size:32px;">image</span>
                 <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-sorpresa1</p>
               </div>
             </div>
-            <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img absolute inset-0" src="imagenes/roku-sorpresa2.jpg" data-base="imagenes/roku-sorpresa2"
-                alt="Sorpresa 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+            <div class="project-frame tall-card aspect-[3/4] flex items-center justify-center">
+              <img class="lb-img" src="imagenes/roku-sorpresa2.jpg" data-base="imagenes/roku-sorpresa2"
+                alt="Sorpresa 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
               <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
                 <span class="material-symbols-outlined" style="font-size:32px;">image</span>
                 <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-sorpresa2</p>
@@ -250,18 +350,18 @@
         <!-- CONTENIDO — 2 imágenes -->
         <div class="section-row reveal">
           <span class="section-label">Contenido</span>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img absolute inset-0" src="imagenes/roku-contenido1.jpg" data-base="imagenes/roku-contenido1"
-                alt="Contenido 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+          <div class="project-grid-vertical">
+            <div class="project-frame tall-card aspect-[3/4] flex items-center justify-center">
+              <img class="lb-img" src="imagenes/roku-contenido1.jpg" data-base="imagenes/roku-contenido1"
+                alt="Contenido 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
               <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
                 <span class="material-symbols-outlined" style="font-size:32px;">image</span>
                 <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-contenido1</p>
               </div>
             </div>
-            <div class="aspect-[3/4] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
-              <img class="lb-img absolute inset-0" src="imagenes/roku-contenido2.jpg" data-base="imagenes/roku-contenido2"
-                alt="Contenido 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;z-index:2;"/>
+            <div class="project-frame tall-card aspect-[3/4] flex items-center justify-center">
+              <img class="lb-img" src="imagenes/roku-contenido2.jpg" data-base="imagenes/roku-contenido2"
+                alt="Contenido 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
               <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
                 <span class="material-symbols-outlined" style="font-size:32px;">image</span>
                 <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">roku-contenido2</p>
@@ -302,10 +402,18 @@
             </div>
             ════════════════════════════════════════════
             -->
-            <div class="video-wrapper bg-[#FFE3F6] flex items-center justify-center" style="display:flex;align-items:center;justify-content:center;">
-              <div style="position:absolute;display:flex;flex-direction:column;align-items:center;gap:8px;color:#FD8798;pointer-events:none;">
+            <div class="video-wrapper has-video" data-video-player>
+              <video playsinline preload="metadata" controls poster="imagenes/roku-claridad.jpg">
+                <source src="videos/roku-reel-01.mp4" type="video/mp4"/>
+              </video>
+              <button class="video-toggle" type="button" data-video-toggle aria-label="Reproducir video">
+                <span class="material-symbols-outlined">play_arrow</span>
+                <span>Play</span>
+              </button>
+              <span class="video-status">Reel 01</span>
+              <div class="video-empty">
                 <span class="material-symbols-outlined" style="font-size:40px;">play_circle</span>
-                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">Reemplaza con tu video</p>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">Agrega videos/roku-reel-01.mp4</p>
               </div>
             </div>
           </div>
@@ -318,10 +426,18 @@
             🎥 VIDEO ROKU 2 — mismo proceso que Video 1
             ════════════════════════════════════════════
             -->
-            <div class="video-wrapper bg-[#FFE3F6] flex items-center justify-center" style="display:flex;align-items:center;justify-content:center;">
-              <div style="position:absolute;display:flex;flex-direction:column;align-items:center;gap:8px;color:#FD8798;pointer-events:none;">
+            <div class="video-wrapper has-video" data-video-player>
+              <video playsinline preload="metadata" controls poster="imagenes/roku-identificacion.jpg">
+                <source src="videos/roku-reel-02.mp4" type="video/mp4"/>
+              </video>
+              <button class="video-toggle" type="button" data-video-toggle aria-label="Reproducir video">
+                <span class="material-symbols-outlined">play_arrow</span>
+                <span>Play</span>
+              </button>
+              <span class="video-status">Reel 02</span>
+              <div class="video-empty">
                 <span class="material-symbols-outlined" style="font-size:40px;">play_circle</span>
-                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">Reemplaza con tu video</p>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">Agrega videos/roku-reel-02.mp4</p>
               </div>
             </div>
           </div>
@@ -359,6 +475,46 @@
       entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
     },{threshold:.1});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    document.querySelectorAll('[data-video-player]').forEach(function(player){
+      var video=player.querySelector('video');
+      var toggle=player.querySelector('[data-video-toggle]');
+      var icon=toggle.querySelector('.material-symbols-outlined');
+      var label=toggle.querySelector('span:last-child');
+      var emptyState=player.querySelector('.video-empty');
+
+      function syncButton(){
+        var isPaused=video.paused || video.ended;
+        icon.textContent=isPaused?'play_arrow':'pause';
+        label.textContent=isPaused?'Play':'Pause';
+        toggle.setAttribute('aria-label',isPaused?'Reproducir video':'Pausar video');
+      }
+
+      toggle.addEventListener('click',function(){
+        if(video.paused || video.ended){ video.play(); }
+        else{ video.pause(); }
+      });
+
+      video.addEventListener('click',function(){
+        if(video.paused || video.ended){ video.play(); }
+        else{ video.pause(); }
+      });
+
+      ['play','pause','ended'].forEach(function(eventName){
+        video.addEventListener(eventName,syncButton);
+      });
+
+      video.addEventListener('loadeddata',function(){
+        player.classList.add('has-video');
+      });
+
+      video.addEventListener('error',function(){
+        player.classList.remove('has-video');
+        emptyState.style.display='flex';
+      });
+
+      syncButton();
+    });
   </script>
 </body>
 </html>
