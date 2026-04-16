@@ -50,6 +50,7 @@
       height:550vh; /* zona de scroll larga = animación suave */
     }
     #intro-stage{
+      visibility:hidden;
       position:sticky;
       top:0;
       width:100%;
@@ -422,12 +423,19 @@
     window.addEventListener('resize',update);
 
     function init(){
+      // La etapa ya es visible (fondo azul), solo mostrar el texto con delay
       var s=words[0].querySelector('span');
-      s.style.transition='opacity .7s ease, transform .7s ease';
-      s.style.opacity='1';
-      s.style.transform='scale('+S0+')';
-      setTimeout(function(){ s.style.transition=''; update(); },750);
+      setTimeout(function(){
+        s.style.transition='opacity .9s ease, transform .9s ease';
+        s.style.opacity='1';
+        s.style.transform='scale('+S0+')';
+        setTimeout(function(){ s.style.transition=''; update(); },950);
+      }, 400);
     }
+
+    // Mostrar el stage inmediatamente (fondo azul visible)
+    // pero el texto aparece con delay
+    document.getElementById('intro-stage').style.visibility = 'visible';
     requestAnimationFrame(function(){ requestAnimationFrame(init); });
 
     cta.addEventListener('click',()=>{
