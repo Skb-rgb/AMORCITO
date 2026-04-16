@@ -76,29 +76,26 @@
               onerror="tryNextFormat(this)"
               class="block w-full h-[52vh] md:h-[72vh] object-cover object-center"
             />
-            <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/55 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/15 via-black/25 to-black/60 pointer-events-none"></div>
           </div>
         </div>
 
         <div class="w-full max-w-4xl text-center">
-          <span class="font-label uppercase tracking-[0.2em] font-bold text-secondary bg-on-surface px-2 py-1 text-xs mb-8 inline-block fade-up delay-1">Project 02 / Hyatt</span>
-          <h1 class="font-headline text-[clamp(2.8rem,8vw,6.2rem)] font-black leading-[0.88] tracking-tighter text-on-surface mb-8 fade-up delay-2">
-            No todo se cuenta. <br/>
-            <span class="text-primary italic">Algunas cosas</span> <br/>
-            se sienten.
+          <span class="font-label uppercase tracking-[0.2em] font-bold text-secondary bg-on-surface px-2 py-1 text-xs mb-8 inline-block fade-up delay-1">
+            Project 02 / Hyatt
+          </span>
+
+          <h1 class="font-headline text-[clamp(2.8rem,8vw,6.5rem)] font-black leading-[0.88] tracking-tighter text-on-surface mb-8 fade-up delay-2">
+            Hyatt <span class="text-primary italic">Storytelling</span>
           </h1>
         </div>
 
         <div class="w-full max-w-3xl fade-up delay-3">
           <div class="font-body text-base md:text-lg font-light leading-relaxed text-on-surface-variant flex flex-col gap-5 text-left">
-            <h2 class="font-headline text-3xl md:text-5xl font-black tracking-tighter text-on-surface mb-2 text-center">Destino Exclusivo</h2>
             <p>Nace como un formato para NTN24, un canal acostumbrado a contar lo que esta pasando en el mundo, en tiempo real, para millones de personas.</p>
             <p>La pregunta fue simple: que pasa cuando dejas de contar la noticia y empiezas a contar lo que se vive.</p>
             <p>Asi nace un formato donde el viaje deja de verse y empieza a sentirse.</p>
-            <p>Desde ahi, el reto fue definir como debia contarse: que hacia especial cada destino, que valia la pena mostrar y como construir una narrativa que realmente conectara.</p>
-            <p>Construi la narrativa del formato, definiendo su estructura, tono e intencion, y desarrolle los libretos a partir de esa vision.</p>
-            <p>En alianza con <strong class="font-bold text-on-surface">Hyatt Hotels Corporation</strong>, el formato se llevo a destinos como Costa Rica, Panama, Jamaica y San Jose del Cabo, traduciendo cada lugar en una historia distinta.</p>
-            <p>Se emitio en television internacional y en digital, ampliando el alcance a una audiencia global.</p>
+            <p>Desde ahi se construyo una narrativa donde cada destino se convierte en una experiencia editorial, emocional y visual.</p>
             <p class="italic text-on-surface">"No era solo mostrar destinos. Era encontrar una forma distinta de contarlos."</p>
           </div>
         </div>
@@ -260,6 +257,20 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
     }, { threshold: 0.1 });
     reveals.forEach(el => obs.observe(el));
+  </script>
+  <script>
+    var _formats = ['jpg','png','svg','webp','jpeg'];
+    function tryNextFormat(img){
+      var base = img.dataset.base || img.src.replace(/\.[^.]+$/, "");
+      var tried = img.dataset.tried ? img.dataset.tried.split(',') : [];
+      var next = _formats.find(function(f){ return tried.indexOf(f) === -1; });
+      if(next){
+        img.dataset.tried = tried.concat(next).join(',');
+        img.src = base + '.' + next;
+      } else {
+        img.style.display = 'none';
+      }
+    }
   </script>
 </body>
 </html>
