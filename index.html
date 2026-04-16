@@ -89,11 +89,11 @@
       word-break:break-word;
     }
     /* colores por slide */
-    #iw-0 span{ color:#fff; }
-    #iw-1 span{ color:#2f2e2e; }
-    #iw-2 span{ color:#fff; }
-    #iw-3 span{ color:#4D4647;font-size:clamp(18px,3.2vw,46px);line-height:1.15; }
-    #iw-3 span em{ color:#4D4647;font-style:normal; }
+    #iw-0 span{ color:#fff; opacity:0; }
+    #iw-1 span{ color:#2f2e2e; opacity:0; }
+    #iw-2 span{ color:#fff; opacity:0; }
+    #iw-3 span{ color:#4D4647;font-size:clamp(20px,3.5vw,52px);line-height:1.2;font-family:'Roboto',sans-serif;font-weight:300;opacity:0; }
+    #iw-3 span em{ color:#FA5E75;font-style:normal;font-weight:300; }
 
     /* chrome */
     #intro-tag{
@@ -130,8 +130,7 @@
     #intro-cta.visible{ opacity:1;pointer-events:auto; }
     #intro-cta:hover{ background:#FA5E75; }
 
-    /* entrada del primer texto — opacity inicial baja, JS toma el control */
-    #iw-0 span{ opacity:0; }
+    /* entrada del primer texto — JS toma el control */
   </style>
 </head>
 <body class="selection:bg-primary selection:text-white">
@@ -179,8 +178,8 @@
         <div class="iword" id="iw-2"><span>CONNECT OR INTERRUPT</span></div>
         <div class="iword" id="iw-3">
           <span>
-            Las mejores ideas<br/>no nacen de crear más.<br/>
-            <em>Nacen de hacer<br/>las preguntas correctas.</em>
+            Las mejores ideas no nacen de crear más.<br/>
+            <em>Nacen de hacer las preguntas correctas.</em>
           </span>
         </div>
 
