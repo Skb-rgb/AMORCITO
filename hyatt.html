@@ -66,28 +66,48 @@
   <main class="pt-24">
 
     <!-- ── HERO ─────────────────────────────────────────────────── -->
-    <section class="px-8 md:px-16 py-20 md:py-28" id="hero">
-      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start gap-10 md:gap-20">
-        <div class="w-full md:w-2/3">
-          <span class="font-label uppercase tracking-[0.2em] font-bold text-secondary bg-on-surface px-2 py-1 text-xs mb-8 inline-block fade-up delay-1">Project 02 / Hyatt</span>
-          <h1 class="font-headline text-[clamp(2.5rem,8vw,6rem)] font-black leading-[0.88] tracking-tighter text-on-surface mb-10 fade-up delay-2">
-            No todo se cuenta. <br/>
-            <span class="text-primary italic">Algunas cosas</span> <br/>
-            se sienten.
-          </h1>
-        </div>
-        <div class="w-full md:w-1/3 pt-2 md:pt-28 border-l border-outline/20 pl-8 fade-up delay-3">
-          <div class="font-body text-base md:text-lg font-light leading-relaxed text-on-surface-variant flex flex-col gap-5">
-            <h2 class="font-headline text-3xl md:text-5xl font-black tracking-tighter text-on-surface mb-2">Destino Exclusivo</h2>
-            <p>Nace como un formato para NTN24, un canal acostumbrado a contar lo que está pasando en el mundo, en tiempo real, para millones de personas.</p>
-            <p>La pregunta fue simple: ¿qué pasa cuando dejas de contar la noticia… y empiezas a contar lo que se vive?</p>
-            <p>Así nace un formato donde el viaje deja de verse… y empieza a sentirse.</p>
-            <p>Desde ahí, el reto fue definir cómo debía contarse: qué hacía especial cada destino, qué valía la pena mostrar y cómo construir una narrativa que realmente conectara.</p>
-            <p>Construí la narrativa del formato, definiendo su estructura, tono e intención, y desarrollé los libretos a partir de esa visión.</p>
-            <p>En alianza con <strong class="font-bold text-on-surface">Hyatt Hotels Corporation</strong>, el formato se llevó a destinos como Costa Rica, Panamá, Jamaica y San José del Cabo, traduciendo cada lugar en una historia distinta.</p>
-            <p>Se emitió en televisión internacional y en digital, ampliando el alcance a una audiencia global.</p>
-            <p class="italic text-on-surface">"No era solo mostrar destinos. Era encontrar una forma distinta de contarlos."</p>
+    <section id="hero" style="position:relative;width:100%;min-height:100vh;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:80px;">
+      <!-- 📸 IMAGEN HERO — sube imagenes/hyatt-hero.jpg -->
+      <img alt="Hyatt Storytelling hero" src="imagenes/hyatt-hero.jpg" data-base="imagenes/hyatt-hero"
+        onerror="tryNextFormat(this)"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;"/>
+      <!-- Overlay oscuro -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.5) 40%,rgba(0,0,0,0.75) 80%,#FFF8FA 100%);pointer-events:none;"></div>
+      <!-- Contenido -->
+      <div class="max-w-7xl mx-auto w-full px-8 md:px-16 relative z-10 flex flex-col gap-8">
+        <!-- Fila 1: Destino Exclusivo (izq) + frase (der) -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+          <div class="md:col-span-7 fade-up delay-1">
+            <p class="font-label text-xs font-medium uppercase tracking-[0.2em] mb-4" style="color:rgba(255,255,255,0.6);">CASE STUDY / 02</p>
+            <h1 class="font-headline font-black leading-[0.88] tracking-tighter" style="color:#fff;text-shadow:0 2px 20px rgba(0,0,0,0.3);font-size:clamp(3rem,9vw,8rem);">
+              Destino<br/>Exclusivo
+            </h1>
           </div>
+          <div class="md:col-span-5 pb-2 fade-up delay-2" style="border-left:2px solid rgba(255,255,255,0.2);padding-left:2rem;">
+            <p class="font-headline text-xl md:text-2xl font-black tracking-tighter leading-tight" style="color:#fff;">
+              No todo se cuenta.<br/>
+              <span style="color:#FA5E75;" class="italic">Algunas cosas se sienten.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── NARRATIVA ─────────────────────────────────────────────── -->
+    <section class="px-8 md:px-16 py-20 md:py-28 bg-[#FFF8FA]">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+        <div class="md:col-span-4 reveal">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-primary block mb-4">Sobre el formato</span>
+          <h2 class="font-headline text-3xl md:text-4xl font-black tracking-tighter text-on-surface">El origen<br/>de la historia</h2>
+        </div>
+        <div class="md:col-span-8 font-body text-base md:text-lg leading-relaxed flex flex-col gap-4 text-on-surface-variant reveal" style="transition-delay:.15s">
+          <p>Nace como un formato para NTN24, un canal acostumbrado a contar lo que está pasando en el mundo, en tiempo real, para millones de personas.</p>
+          <p>La pregunta fue simple: ¿qué pasa cuando dejas de contar la noticia… y empiezas a contar lo que se vive?</p>
+          <p>Así nace un formato donde el viaje deja de verse… y empieza a sentirse.</p>
+          <p>Construí la narrativa del formato, definiendo su estructura, tono e intención, y desarrollé los libretos a partir de esa visión.</p>
+          <p>En alianza con <strong class="font-bold text-on-surface">Hyatt Hotels Corporation</strong>, el formato se llevó a Costa Rica, Panamá, Jamaica y San José del Cabo.</p>
+          <p>Se emitió en televisión internacional y en digital, ampliando el alcance a una audiencia global.</p>
+          <p class="italic text-on-surface font-medium mt-2">"No era solo mostrar destinos. Era encontrar una forma distinta de contarlos."</p>
         </div>
       </div>
     </section>
@@ -247,6 +267,16 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
     }, { threshold: 0.1 });
     reveals.forEach(el => obs.observe(el));
+  </script>
+  <script>
+    var _formats=['jpg','png','svg','webp','jpeg'];
+    function tryNextFormat(img){
+      var base=img.dataset.base||img.src.replace(/\.[^.]+$/,'');
+      var tried=img.dataset.tried?img.dataset.tried.split(','):[];
+      var next=_formats.find(function(f){return tried.indexOf(f)===-1;});
+      if(next){img.dataset.tried=tried.concat(next).join(',');img.src=base+'.'+next;}
+      else{img.style.display='none';}
+    }
   </script>
 </body>
 </html>
