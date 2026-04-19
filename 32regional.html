@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>32 Regionalmente Nuestro — Jessica Suárez</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#FA5E75", "secondary": "#FD8798", "tertiary": "#FFE3F6",
+            "on-surface": "#4D4647", "background": "#FFF8FA",
+            "outline": "#4D4647", "surface-variant": "#FFE3F6",
+            "on-surface-variant": "#5c5b5b",
+          },
+          borderRadius: { "DEFAULT": "0px" },
+          fontFamily: { "headline": ["Space Grotesk"], "body": ["Manrope"] }
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { font-family: 'Manrope', sans-serif; background: #FFF8FA; color: #4D4647; cursor:default; }
+    a, button { cursor:pointer; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+    .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.25s; } .delay-3 { animation-delay: 0.4s; }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  </style>
+</head>
+<body class="selection:bg-primary selection:text-white">
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md flex justify-between items-center px-8 md:px-12 py-5 border-b border-black/5">
+    <a href="index.html" class="flex items-center gap-3 text-primary font-headline font-black text-xl uppercase tracking-tighter hover:opacity-70 transition-opacity">
+      <span class="material-symbols-outlined text-xl">arrow_back</span>
+      JESSICA SUÁREZ
+    </a>
+    <div class="hidden md:flex gap-10 font-headline uppercase tracking-tight font-bold text-sm text-primary">
+      <a href="rcn.html"   class="hover:opacity-50 transition-opacity">RCN Total</a>
+      <a href="hyatt.html" class="hover:opacity-50 transition-opacity">Hyatt</a>
+      <a href="roku.html"  class="hover:opacity-50 transition-opacity">Roku</a>
+    </div>
+    <span class="font-label text-xs uppercase tracking-widest text-outline hidden md:block">Project 04/04</span>
+  </nav>
+
+  <!-- Side dots -->
+  <div class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-5 items-center">
+    <a href="#hero"      class="w-2 h-2 rounded-full bg-primary scale-150 transition-transform"></a>
+    <a href="#narrativa" class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
+    <a href="#capsulas"  class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
+    <a href="#resultado" class="w-2 h-2 rounded-full bg-[#F5C5CE] hover:scale-125 transition-transform"></a>
+  </div>
+
+  <main class="pt-24">
+
+    <!-- ══ HERO ══════════════════════════════════════════ -->
+    <section id="hero" style="position:relative;width:100%;min-height:100vh;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:80px;">
+      <!-- 📸 IMAGEN HERO — sube imagenes/32regional-hero.jpg -->
+      <img alt="32 Regionalmente Nuestro hero" src="imagenes/32regional-hero.jpg" data-base="imagenes/32regional-hero"
+        onerror="tryNextFormat(this)"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;"/>
+      <!-- Overlay oscuro -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.5) 40%,rgba(0,0,0,0.75) 80%,#FFF8FA 100%);pointer-events:none;"></div>
+      <!-- Contenido -->
+      <div class="max-w-7xl mx-auto w-full px-8 md:px-16 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+        <div class="md:col-span-7 fade-up delay-1">
+          <p class="font-label text-xs font-medium uppercase tracking-[0.2em] mb-4" style="color:rgba(255,255,255,0.6);">CASE STUDY / 04</p>
+          <h1 class="font-headline font-black leading-[0.88] tracking-tighter" style="color:#fff;text-shadow:0 2px 20px rgba(0,0,0,0.3);font-size:clamp(2.5rem,8vw,7rem);">
+            32<br/>Regionalmente<br/>Nuestro
+          </h1>
+        </div>
+        <div class="md:col-span-5 pb-2 fade-up delay-2" style="border-left:2px solid rgba(255,255,255,0.2);padding-left:2rem;">
+          <p class="font-headline text-xl md:text-2xl font-black tracking-tighter leading-tight" style="color:#fff;">
+            Nuestra Tele Internacional emitió<br/>la primera temporada.<br/>
+            <span style="color:#FA5E75;" class="italic">El reto no era repetirla,<br/>era superarla.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ NARRATIVA ═════════════════════════════════════ -->
+    <section class="px-8 md:px-16 py-20 md:py-28 bg-[#FFF8FA]" id="narrativa">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+        <div class="md:col-span-4 reveal">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-primary block mb-4">Sobre el proyecto</span>
+          <h2 class="font-headline text-3xl md:text-4xl font-black tracking-tighter text-on-surface">Segunda<br/>temporada</h2>
+        </div>
+        <div class="md:col-span-8 font-body text-base md:text-lg leading-relaxed flex flex-col gap-4 text-on-surface-variant reveal" style="transition-delay:.15s">
+          <p>Desarrollar una segunda temporada para la <strong class="font-bold text-on-surface">Federación Nacional de Departamentos</strong> implicaba ir más allá de mostrar regiones: había que construir una narrativa más profunda, más coherente y más relevante para el espectador.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ VIDEOS ═════════════════════════════════════════ -->
+    <section class="px-8 md:px-16 pb-20 space-y-20 md:space-y-32" id="capsulas">
+
+      <!-- Video 1 -->
+      <div class="relative reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 items-end gap-0 md:gap-10">
+          <div class="md:col-span-8" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/mXgR1WZavBY?rel=0&modestbranding=1&showinfo=0&controls=1"
+              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          </div>
+          <div class="md:col-span-4 mt-6 md:mt-0 pb-6">
+            <p class="font-headline text-xs font-bold uppercase tracking-widest text-primary mb-3">Capítulo 01</p>
+            <h3 class="font-headline text-2xl md:text-3xl font-bold tracking-tight mb-3">Reel T2</h3>
+            <p class="text-on-surface-variant font-body text-sm">La voz conecta, no narra. La segunda temporada desde quienes viven las regiones.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video 2 -->
+      <div class="relative reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 items-start gap-0 md:gap-10">
+          <div class="md:col-start-2 md:col-span-4 order-2 md:order-1 mt-6 md:mt-0 pt-6">
+            <p class="font-headline text-xs font-bold uppercase tracking-widest text-tertiary mb-3">Capítulo 02</p>
+            <h3 class="font-headline text-2xl md:text-3xl font-bold tracking-tight mb-3">Episodio</h3>
+            <p class="text-on-surface-variant font-body text-sm">Las gobernaciones desde lo cotidiano. Integración orgánica, no institucional.</p>
+          </div>
+          <div class="md:col-span-7 order-1 md:order-2" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/USKmETnyyDs?rel=0&modestbranding=1&showinfo=0&controls=1"
+              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ══ EL DIFERENCIAL ════════════════════════════════ -->
+    <section class="px-8 md:px-16 py-20 bg-[#FFF1F5]" id="resultado">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-16 reveal">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-primary block mb-3">Evolución</span>
+          <h2 class="font-headline text-4xl md:text-5xl font-black tracking-tighter text-on-surface">El diferencial</h2>
+          <p class="font-body text-lg text-on-surface-variant mt-4 max-w-2xl">
+            La segunda temporada no continuó el formato, lo evolucionó: pasó de mostrar regiones a contar historias desde quienes las viven.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 reveal" style="transition-delay:.1s">
+          <div class="border-l-4 border-primary pl-6 flex flex-col gap-2">
+            <span class="font-headline text-xs font-bold uppercase tracking-widest text-primary">01</span>
+            <h4 class="font-headline text-lg font-black text-on-surface">La gente como protagonista</h4>
+            <p class="font-body text-sm text-on-surface-variant">Más emoción, menos paisaje.</p>
+          </div>
+          <div class="border-l-4 border-primary pl-6 flex flex-col gap-2">
+            <span class="font-headline text-xs font-bold uppercase tracking-widest text-primary">02</span>
+            <h4 class="font-headline text-lg font-black text-on-surface">Integración orgánica, no institucional</h4>
+            <p class="font-body text-sm text-on-surface-variant">Las gobernaciones desde lo cotidiano.</p>
+          </div>
+          <div class="border-l-4 border-primary pl-6 flex flex-col gap-2">
+            <span class="font-headline text-xs font-bold uppercase tracking-widest text-primary">03</span>
+            <h4 class="font-headline text-lg font-black text-on-surface">Un tono más cercano y natural</h4>
+            <p class="font-body text-sm text-on-surface-variant">La voz conecta, no narra.</p>
+          </div>
+        </div>
+
+        <!-- Resultado + Video playlist -->
+        <div class="reveal" style="transition-delay:.2s">
+          <p class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-primary block mb-4">Resultado</p>
+          <p class="font-body text-lg text-on-surface-variant mb-10 max-w-2xl">Una narrativa más humana, cercana y relevante.</p>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/7b2IawXPtHk?rel=0&modestbranding=1&showinfo=0&controls=1&list=PL8jC2ICZFQkwX9ie8FyJ73AWTJC3OCaw6"
+              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <a href="index.html" class="flex items-center justify-between px-8 md:px-16 py-12 bg-black text-white hover:bg-primary transition-colors duration-500 group">
+      <span class="font-headline font-black uppercase tracking-widest text-xs text-white/30 group-hover:text-white/60 transition-colors">Volver al</span>
+      <span class="font-headline font-black text-2xl md:text-4xl uppercase tracking-tighter">Portafolio →</span>
+    </a>
+
+  </main>
+
+  <footer class="bg-black text-white px-8 md:px-16 py-8 flex justify-between items-center">
+    <a href="index.html" class="font-headline font-black text-sm uppercase tracking-widest text-white/40 hover:text-white transition-colors">← Volver al portafolio</a>
+    <span class="font-label text-xs text-white/20 uppercase tracking-widest">© 2026 JESSICA SUÁREZ</span>
+  </footer>
+
+  <script>
+    var _formats=['jpg','png','svg','webp','jpeg'];
+    function tryNextFormat(img){
+      var base=img.dataset.base||img.src.replace(/\.[^.]+$/,'');
+      var tried=img.dataset.tried?img.dataset.tried.split(','):[];
+      var next=_formats.find(function(f){return tried.indexOf(f)===-1;});
+      if(next){img.dataset.tried=tried.concat(next).join(',');img.src=base+'.'+next;}
+      else{img.style.display='none';}
+    }
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+    },{threshold:.1});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
