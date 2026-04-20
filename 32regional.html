@@ -91,42 +91,49 @@
     </section>
 
     <!-- ══ VIDEOS ═════════════════════════════════════════ -->
-    <section class="px-8 md:px-16 pb-20 space-y-20 md:space-y-32" id="capsulas">
+    <section class="px-8 md:px-16 pb-20" id="capsulas">
 
-      <!-- Video 1 -->
-      <div class="relative reveal">
-        <div class="grid grid-cols-1 md:grid-cols-12 items-end gap-0 md:gap-10">
-          <div class="md:col-span-8" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
-            <iframe src="https://www.youtube.com/embed/mXgR1WZavBY?rel=0&modestbranding=1&showinfo=0&controls=1"
-              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-          </div>
-          <div class="md:col-span-4 mt-6 md:mt-0 pb-6">
-            <p class="font-headline text-xs font-bold uppercase tracking-widest text-primary mb-3">Capítulo 01</p>
-            <h3 class="font-headline text-2xl md:text-3xl font-bold tracking-tight mb-3">Promo 01</h3>
-            <p class="text-on-surface-variant font-body text-sm">    </p>
-          </div>
-        </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+    <!-- VIDEO 1 -->
+    <div class="relative group">
+      <!-- Video -->
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+        <iframe src="https://www.youtube.com/embed/mXgR1WZavBY?rel=0&modestbranding=1&controls=1"
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="position:absolute;top:0;left:0;width:100%;height:100%;">
+        </iframe>
       </div>
 
-      <!-- Video 2 -->
-      <div class="relative reveal">
-        <div class="grid grid-cols-1 md:grid-cols-12 items-start gap-0 md:gap-10">
-          <div class="md:col-start-2 md:col-span-4 order-2 md:order-1 mt-6 md:mt-0 pt-6">
-            <p class="font-headline text-xs font-bold uppercase tracking-widest text-tertiary mb-3">Promo 02</p>
-            <h3 class="font-headline text-2xl md:text-3xl font-bold tracking-tight mb-3">Episodio</h3>
-            <p class="text-on-surface-variant font-body text-sm">Las gobernaciones desde lo cotidiano. Integración orgánica, no institucional.</p>
-          </div>
-          <div class="md:col-span-7 order-1 md:order-2" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
-            <iframe src="https://www.youtube.com/embed/USKmETnyyDs?rel=0&modestbranding=1&showinfo=0&controls=1"
-              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-          </div>
-        </div>
+      <!-- Overlay -->
+      <div class="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 to-transparent">
+        <p class="text-xs font-bold uppercase tracking-widest text-white mb-2">Promo 01</p>
+        <h3 class="text-2xl md:text-3xl font-bold text-white">Capítulo 01</h3>
+      </div>
+    </div>
+
+    <!-- VIDEO 2 -->
+    <div class="relative group">
+      <!-- Video -->
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+        <iframe src="https://www.youtube.com/embed/USKmETnyyDs?rel=0&modestbranding=1&controls=1"
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="position:absolute;top:0;left:0;width:100%;height:100%;">
+        </iframe>
       </div>
 
-    </section>
+      <!-- Overlay -->
+      <div class="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 to-transparent">
+        <p class="text-xs font-bold uppercase tracking-widest text-white mb-2">Promo 02</p>
+        <h3 class="text-2xl md:text-3xl font-bold text-white">Episodio</h3>
+      </div>
+    </div>
 
+  </div>
+
+</section>
 
       <!-- ══ NARRATIVA ═════════════════════════════════════ -->
     
