@@ -43,7 +43,10 @@
     <a href="index.html" class="hidden md:inline-block border-2 border-white text-white font-headline uppercase tracking-tight font-bold text-xs px-5 py-2.5 hover:bg-white hover:text-primary transition-colors duration-300">VER TRABAJO</a>
   </nav>
 
-  <main class="min-h-screen flex flex-col items-center justify-center px-8 py-32 text-center">
+  <!-- Canvas partículas -->
+  <canvas id="particles" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
+
+  <main class="min-h-screen relative z-10 flex flex-col items-center justify-center px-8 py-32 text-center">
 
 
     <p class="font-headline text-white/60 text-sm font-bold uppercase tracking-[0.3em] mb-5 fade-up delay-1">HABLEMOS</p>
@@ -94,5 +97,119 @@
     <span class="font-label text-xs text-white/20 uppercase tracking-widest">© 2026 JESSICA SUÁREZ</span>
   </footer>
 
+  <script>
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function Particle(){
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.r = Math.random() * 3 + 1;
+      this.dx = (Math.random() - 0.5) * 0.6;
+      this.dy = (Math.random() - 0.5) * 0.6;
+      this.alpha = Math.random() * 0.4 + 0.1;
+    }
+
+    Particle.prototype.update = function(){
+      this.x += this.dx;
+      this.y += this.dy;
+      if(this.x < 0 || this.x > canvas.width) this.dx *= -1;
+      if(this.y < 0 || this.y > canvas.height) this.dy *= -1;
+    }
+
+    Particle.prototype.draw = function(){
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,' + this.alpha + ')';
+      ctx.fill();
+    }
+
+    for(let i = 0; i < 80; i++) particles.push(new Particle());
+
+    function drawLines(){
+      for(let i = 0; i < particles.length; i++){
+        for(let j = i + 1; j < particles.length; j++){
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < 120){
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = 'rgba(255,255,255,' + (0.15 * (1 - dist/120)) + ')';
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(function(p){ p.update(); p.draw(); });
+      drawLines();
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+
+  <!-- Partículas de fondo -->
+  <canvas id="particles-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
+  <script>
+    (function(){
+      var canvas = document.getElementById('particles-canvas');
+      var ctx = canvas.getContext('2d');
+      var particles = [];
+      var N = 60;
+
+      function resize(){
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function rand(min, max){ return Math.random()*(max-min)+min; }
+
+      for(var i=0; i<N; i++){
+        particles.push({
+          x: rand(0, window.innerWidth),
+          y: rand(0, window.innerHeight),
+          r: rand(2, 6),
+          dx: rand(-0.4, 0.4),
+          dy: rand(-0.5, -0.1),
+          opacity: rand(0.1, 0.35)
+        });
+      }
+
+      function draw(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(function(p){
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fillStyle = 'rgba(255,255,255,'+p.opacity+')';
+          ctx.fill();
+
+          p.x += p.dx;
+          p.y += p.dy;
+
+          // reset when out of screen
+          if(p.y < -10) p.y = canvas.height + 10;
+          if(p.x < -10) p.x = canvas.width + 10;
+          if(p.x > canvas.width + 10) p.x = -10;
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+  </script>
 </body>
 </html>
