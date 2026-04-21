@@ -37,28 +37,8 @@
     .delay-3 { animation-delay: 0.4s; }
 
     /* Lightbox */
-    .gallery-frame{
-      position:relative;
-      overflow:visible;
-      background:transparent;
-    }
-    .gallery-frame.vertical-frame{
-      max-width:420px;
-      margin:0 auto;
-    }
-    .lightbox-img {
-      cursor: zoom-in;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      display:block;
-      width:100%;
-      height:auto;
-      object-fit:initial;
-      object-position:center;
-      background:transparent;
-      border:1px solid rgba(250,94,117,0.16);
-      box-shadow:0 18px 45px rgba(77,70,71,0.08);
-    }
-    .lightbox-img:hover { opacity: 0.96; transform: scale(1.01); }
+    .lightbox-img { cursor: zoom-in; transition: transform 0.3s ease, opacity 0.3s ease; }
+    .lightbox-img:hover { opacity: 0.9; transform: scale(1.02); }
     #lightbox {
       display: none;
       position: fixed;
@@ -98,13 +78,6 @@
     #lightbox-close:hover { opacity: 1; }
     .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .video-shell{
-      position:relative;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,0.16);
-      box-shadow:0 26px 70px rgba(0,0,0,0.22);
-      background:#000;
-    }
     .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
     .video-wrapper iframe, .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
   </style>
@@ -217,117 +190,192 @@
           <span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-white/30 mt-2 md:mt-0">PLAY REEL / 2026</span>
         </div>
 
-        <!-- Player personalizado -->
-            <div class="md:col-span-8" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
-                 <iframe
-                    src="https://www.youtube.com/embed/O_R5i8_oEVQ"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                    style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                  </iframe>
-                </div>
+        <!-- Video YouTube -->
+        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+          <iframe
+            src="https://www.youtube.com/embed/O_R5i8_oEVQ?rel=0&modestbranding=1&showinfo=0&controls=1"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="position:absolute;top:0;left:0;width:100%;height:100%;">
+          </iframe>
         </div>
-
-        <script>
-        (function(){
-          var video    = document.getElementById('rcn-video');
-          var overlay  = document.getElementById('play-overlay');
-          var ctrls    = document.getElementById('vctrls');
-          var ppBtn    = document.getElementById('pp-btn');
-          var ppIcon   = document.getElementById('pp-icon');
-          var playIcon = document.getElementById('play-icon');
-          var muteBtn  = document.getElementById('mute-btn');
-          var muteIcon = document.getElementById('mute-icon');
-          var volSlider= document.getElementById('vol-slider');
-          var progress = document.getElementById('progress-bar');
-          var fill     = document.getElementById('progress-fill');
-          var timeDisp = document.getElementById('time-display');
-          var fsBtn    = document.getElementById('fs-btn');
-          var container= document.getElementById('video-container');
-          var hideTimer;
-
-          // Capturar primer frame
-          video.currentTime = 0.1;
-
-          function fmt(s){
-            var m=Math.floor(s/60), sec=Math.floor(s%60);
-            return m+':'+(sec<10?'0':'')+sec;
-          }
-
-          function showCtrls(){
-            ctrls.style.opacity='1';
-            clearTimeout(hideTimer);
-            hideTimer=setTimeout(function(){ if(!video.paused) ctrls.style.opacity='0'; },2500);
-          }
-
-          container.addEventListener('mousemove', showCtrls);
-          container.addEventListener('touchstart', showCtrls);
-
-          // Play desde overlay
-          overlay.addEventListener('click', function(){
-            video.play();
-            overlay.style.opacity='0';
-            overlay.style.pointerEvents='none';
-            showCtrls();
-          });
-
-          // Play/Pause
-          ppBtn.addEventListener('click', function(){
-            if(video.paused){ video.play(); ppIcon.textContent='pause'; showCtrls(); }
-            else { video.pause(); ppIcon.textContent='play_arrow'; ctrls.style.opacity='1'; }
-          });
-
-          video.addEventListener('pause', function(){
-            ppIcon.textContent='play_arrow';
-            ctrls.style.opacity='1';
-            clearTimeout(hideTimer);
-          });
-          video.addEventListener('play',  function(){ ppIcon.textContent='pause'; });
-          video.addEventListener('ended', function(){
-            overlay.style.opacity='1';
-            overlay.style.pointerEvents='auto';
-            playIcon.textContent='replay';
-            ppIcon.textContent='play_arrow';
-            ctrls.style.opacity='0';
-          });
-
-          // Progreso
-          video.addEventListener('timeupdate', function(){
-            if(!video.duration) return;
-            var pct = (video.currentTime/video.duration)*100;
-            fill.style.width = pct+'%';
-            timeDisp.textContent = fmt(video.currentTime)+' / '+fmt(video.duration);
-          });
-
-          progress.addEventListener('click', function(e){
-            var rect=progress.getBoundingClientRect();
-            var pct=(e.clientX-rect.left)/rect.width;
-            video.currentTime=pct*video.duration;
-          });
-
-          // Volumen
-          volSlider.addEventListener('input', function(){
-            video.volume=parseFloat(this.value);
-            muteIcon.textContent=video.volume===0?'volume_off':'volume_up';
-          });
-
-          muteBtn.addEventListener('click', function(){
-            video.muted=!video.muted;
-            muteIcon.textContent=video.muted?'volume_off':'volume_up';
-            volSlider.value=video.muted?0:video.volume;
-          });
-
-          // Fullscreen
-          fsBtn.addEventListener('click', function(){
-            if(document.fullscreenElement) document.exitFullscreen();
-            else container.requestFullscreen();
-          });
-        })();
-        </script>
       </div>
     </section>
 
+
+
+    <!-- ── UX RESEARCH ──────────────────────────────────────────── -->
+
+    <!-- ESCUCHAR ES CLAVE -->
+    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FFF8FA]" id="ux">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Intro -->
+        <div class="mb-16 reveal">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.25em] text-primary block mb-4">RCN Total — Plataforma</span>
+          <p class="font-body text-base md:text-lg text-on-surface-variant max-w-3xl leading-relaxed">
+            RCN Total es una plataforma de streaming que reúne lo mejor del contenido colombiano en un solo lugar. Ofrece canales en vivo como Nuestra Tele Internacional, RCN Novelas y NTN24, además de series, novelas, películas y contenido informativo, disponibles en cualquier momento y desde cualquier dispositivo.
+          </p>
+        </div>
+
+        <!-- Título grande -->
+        <div class="mb-16 reveal">
+          <h2 class="font-headline font-black tracking-tighter text-on-surface" style="font-size:clamp(2.5rem,7vw,6rem);line-height:0.9;">
+            Escuchar es clave<br/>en UX
+          </h2>
+        </div>
+
+        <!-- Imagen social listening -->
+        <div class="mb-6 reveal">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-4 block">Social Listening</span>
+          <div class="aspect-[16/9] bg-[#FFE3F6] overflow-hidden relative flex items-center justify-center">
+            <img class="w-full h-full object-cover absolute inset-0 z-10" style="cursor:zoom-in;"
+              src="imagenes/rcn-ux-listening.jpg" data-base="imagenes/rcn-ux-listening"
+              onerror="tryNextFormat(this)" alt="Social Listening RCN"
+              onclick="openLightbox(this.src)"/>
+            <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+              <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+              <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">rcn-ux-listening.jpg</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Segunda imagen -->
+        <div class="reveal" style="transition-delay:.1s">
+          <div class="aspect-[16/9] bg-[#FFE3F6] overflow-hidden relative flex items-center justify-center">
+            <img class="w-full h-full object-cover absolute inset-0 z-10" style="cursor:zoom-in;"
+              src="imagenes/rcn-ux-listening2.jpg" data-base="imagenes/rcn-ux-listening2"
+              onerror="tryNextFormat(this)" alt="Social Listening RCN 2"
+              onclick="openLightbox(this.src)"/>
+            <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+              <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+              <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">rcn-ux-listening2.jpg</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EXPLORAR / REDISEÑAR -->
+    <section class="py-24 md:py-32 px-8 md:px-16 bg-white">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Título grande -->
+        <div class="mb-16 reveal">
+          <h2 class="font-headline font-black tracking-tighter text-on-surface" style="font-size:clamp(2.5rem,7vw,6rem);line-height:0.9;">
+            Explorar.<br/>Entender.<br/>Rediseñar.
+          </h2>
+          <p class="font-body text-base md:text-lg text-on-surface-variant max-w-2xl mt-6 leading-relaxed">
+            Para entender una plataforma tienes que empezar a vivirla como usuario, detectar fricciones, cuestionarlas y simplificarlas.
+          </p>
+        </div>
+
+        <!-- Grid de imágenes UX -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 reveal" style="transition-delay:.1s">
+          <div class="aspect-[4/3] bg-[#FFE3F6] overflow-hidden relative flex items-center justify-center">
+            <img class="w-full h-full object-cover absolute inset-0 z-10" style="cursor:zoom-in;"
+              src="imagenes/rcn-ux-antes.jpg" data-base="imagenes/rcn-ux-antes"
+              onerror="tryNextFormat(this)" alt="UX Antes RCN"
+              onclick="openLightbox(this.src)"/>
+            <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+              <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+              <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">rcn-ux-antes.jpg</p>
+            </div>
+          </div>
+          <div class="aspect-[4/3] bg-[#FFE3F6] overflow-hidden relative flex items-center justify-center">
+            <img class="w-full h-full object-cover absolute inset-0 z-10" style="cursor:zoom-in;"
+              src="imagenes/rcn-ux-despues.jpg" data-base="imagenes/rcn-ux-despues"
+              onerror="tryNextFormat(this)" alt="UX Después RCN"
+              onclick="openLightbox(this.src)"/>
+            <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+              <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+              <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">rcn-ux-despues.jpg</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fácil de usar -->
+        <div class="mb-6 reveal" style="transition-delay:.15s">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-4 block">Fácil de usar</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="aspect-[4/3] bg-[#FFE3F6] overflow-hidden relative flex items-center justify-center">
+              <img class="w-full h-full object-cover absolute inset-0 z-10" style="cursor:zoom-in;"
+                src="imagenes/rcn-ux-facil1.jpg" data-base="imagenes/rcn-ux-facil1"
+                onerror="tryNextFormat(this)" alt="Fácil de usar 1"
+                onclick="openLightbox(this.src)"/>
+              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">rcn-ux-facil1.jpg</p>
+              </div>
+            </div>
+            <div class="aspect-[4/3] bg-[#FFE3F6] overflow-hidden relative flex items-center justify-center">
+              <img class="w-full h-full object-cover absolute inset-0 z-10" style="cursor:zoom-in;"
+                src="imagenes/rcn-ux-facil2.jpg" data-base="imagenes/rcn-ux-facil2"
+                onerror="tryNextFormat(this)" alt="Fácil de usar 2"
+                onclick="openLightbox(this.src)"/>
+              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">rcn-ux-facil2.jpg</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agradable y útil -->
+        <div class="mb-6 reveal" style="transition-delay:.2s">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-4 block">Agradable y útil</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="aspect-[4/3] bg-[#FFE3F6] overflow-hidden relative flex items-center justify-center">
+              <img class="w-full h-full object-cover absolute inset-0 z-10" style="cursor:zoom-in;"
+                src="imagenes/rcn-ux-agradable1.jpg" data-base="imagenes/rcn-ux-agradable1"
+                onerror="tryNextFormat(this)" alt="Agradable y útil 1"
+                onclick="openLightbox(this.src)"/>
+              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">rcn-ux-agradable1.jpg</p>
+              </div>
+            </div>
+            <div class="aspect-[4/3] bg-[#FFE3F6] overflow-hidden relative flex items-center justify-center">
+              <img class="w-full h-full object-cover absolute inset-0 z-10" style="cursor:zoom-in;"
+                src="imagenes/rcn-ux-agradable2.jpg" data-base="imagenes/rcn-ux-agradable2"
+                onerror="tryNextFormat(this)" alt="Agradable y útil 2"
+                onclick="openLightbox(this.src)"/>
+              <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+                <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+                <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">rcn-ux-agradable2.jpg</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA botones -->
+        <div class="reveal" style="transition-delay:.25s">
+          <span class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-4 block">CTA en botones</span>
+          <div class="aspect-[16/9] bg-[#FFE3F6] overflow-hidden relative flex items-center justify-center">
+            <img class="w-full h-full object-cover absolute inset-0 z-10" style="cursor:zoom-in;"
+              src="imagenes/rcn-ux-cta.jpg" data-base="imagenes/rcn-ux-cta"
+              onerror="tryNextFormat(this)" alt="CTA botones RCN"
+              onclick="openLightbox(this.src)"/>
+            <div style="pointer-events:none;z-index:1;" class="flex flex-col items-center gap-2 text-[#FD8798]">
+              <span class="material-symbols-outlined" style="font-size:32px;">image</span>
+              <p style="font-size:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">rcn-ux-cta.jpg</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TÍTULO GRANDE: NO TODOS PODÍAN ENTRAR -->
+    <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FA5E75]">
+      <div class="max-w-7xl mx-auto reveal">
+        <h2 class="font-headline font-black tracking-tighter text-white" style="font-size:clamp(2.5rem,7vw,6.5rem);line-height:0.9;">
+          No todos podían entrar, pero todos estaban teniendo una experiencia.
+        </h2>
+      </div>
+    </section>
 
     <!-- ── CONTEXTO ──────────────────────────────────────────────── -->
     <section class="py-24 md:py-32 px-8 md:px-16 bg-[#FFF8FA]" id="contexto">
@@ -337,8 +385,7 @@
         </div>
         <div class="md:col-span-7 flex flex-col gap-10 reveal" style="transition-delay:0.15s">
           <p class="font-body text-lg md:text-xl leading-relaxed text-on-surface-variant max-w-2xl">
-            La plataforma no estaba disponible en todos los territorios. Y lo que pasaba antes de entrar… no estaba diseñado. La experiencia no empieza cuando accedes.
- Empieza desde el primer contacto.
+            La plataforma no estaba disponible en todos los territorios. Y lo que pasaba antes de entrar… no estaba diseñado.
           </p>
 
         </div>
@@ -360,62 +407,83 @@
         <!-- IMÁGENES CONTEXTO debajo del título -->
         <div class="mb-16 reveal">
           <div class="grid grid-cols-2 gap-4">
-            <div class="gallery-frame">
+            <div class="h-52 md:h-64 overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-contexto1.jpg" data-base="imagenes/rcn-contexto1"
                 alt="Pantalla sin acceso RCN"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
+                <span class="material-symbols-outlined text-4xl">tv_off</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-contexto1.jpg</p>
+              </div>
             </div>
-            <div class="gallery-frame">
+            <div class="h-52 md:h-64 overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-contexto2.jpg" data-base="imagenes/rcn-contexto2"
                 alt="Experiencia alternativa RCN"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
+              <div class="absolute bottom-0 left-0 right-0 p-3 z-20" style="background:linear-gradient(to top,rgba(0,0,0,0.6),transparent); pointer-events:none;">
+                <span class="font-headline text-white text-xs uppercase tracking-widest font-bold">Experiencia alternativa</span>
+              </div>
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
+                <span class="material-symbols-outlined text-4xl">image</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-contexto2.jpg</p>
+              </div>
             </div>
           </div>
         </div>
 
-       <!-- Frase intermedia -->
-             <!-- Frase entre cápsulas -->
-            <div class="py-16 md:py-20 reveal text-center flex flex-col items-center">
-              <h2 class="font-headline text-4xl md:text-8xl font-black tracking-tighter text-on-surface max-w-1g text-center">
-                   La experiencia no termina dentro de la plataforma.<br/>
-                    <span style="color:#FA5E75;">Continúa en cada punto de contacto.</span>
-                  </h2>
-            </div>
-       
-            
-       <!-- MAILINGS — 2 imágenes verticales -->
+        <!-- Frase intermedia -->
+        <div class="py-12 reveal">
+          <p class="font-headline text-2xl md:text-3xl font-black tracking-tighter text-on-surface max-w-2xl">
+            "La experiencia no termina dentro de la plataforma.<br/>
+            <span style="color:#FA5E75;">Continúa en cada punto de contacto.</span>"
+          </p>
+        </div>
+
+        <!-- MAILINGS — 2 imágenes verticales -->
         <div class="mb-16 reveal">
           <span class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-6 block">Mailings</span>
           <div class="grid grid-cols-2 gap-6">
 
             <!-- Mailing 1 -->
-            <div class="gallery-frame vertical-frame">
+            <div class="aspect-[9/16] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-mailing1.jpg" data-base="imagenes/rcn-mailing1"
                 alt="Mailing RCN 1"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
+                <span class="material-symbols-outlined text-4xl">mail</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-mailing1.jpg</p>
+              </div>
             </div>
 
             <!-- Mailing 2 -->
-            <div class="gallery-frame vertical-frame">
+            <div class="aspect-[9/16] overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-mailing2.jpg" data-base="imagenes/rcn-mailing2"
                 alt="Mailing RCN 2"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
+                <span class="material-symbols-outlined text-4xl">mail</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-mailing2.jpg</p>
+              </div>
             </div>
 
           </div>
@@ -427,25 +495,35 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <!-- Push 1 -->
-            <div class="gallery-frame">
+            <div class="aspect-video overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-push1.jpg" data-base="imagenes/rcn-push1"
                 alt="Push Notification RCN 1"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
+                <span class="material-symbols-outlined text-4xl">notifications</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-push1.jpg</p>
+              </div>
             </div>
 
             <!-- Push 2 -->
-            <div class="gallery-frame">
+            <div class="aspect-video overflow-hidden relative bg-[#FFE3F6] flex items-center justify-center">
               <img
-                class="lightbox-img"
+                class="lightbox-img w-full h-full object-cover absolute inset-0" style="z-index:20;cursor:zoom-in;"
                 src="imagenes/rcn-push2.jpg" data-base="imagenes/rcn-push2"
                 alt="Push Notification RCN 2"
                 onclick="openLightbox(this.src)"
                 onerror="tryNextFormat(this)"
+                style="cursor:zoom-in;position:relative;z-index:10;"
               />
+              <div class="flex flex-col items-center gap-2 text-[#FD8798]" style="pointer-events:none;position:absolute;z-index:1;" style="pointer-events:none;">
+                <span class="material-symbols-outlined text-4xl">notifications</span>
+                <p class="font-headline text-xs uppercase tracking-widest">rcn-push2.jpg</p>
+              </div>
             </div>
 
           </div>
