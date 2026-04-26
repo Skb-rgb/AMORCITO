@@ -313,52 +313,38 @@
       </div>
     </section>
 
-    <!-- ══ ESTRATEGIA ════════════════════════════════════ -->
     <!-- ══ ESTRATEGIA ═══════════════════════════════════ -->
     <section class="px-8 md:px-16 py-20" id="estrategia">
       <div class="max-w-6xl mx-auto flex flex-col gap-16">
 
-        <!-- Frase grande centrada -->
-        <div class="text-center reveal">
-          <h2 class="font-headline font-black tracking-tighter text-on-surface" style="font-size:clamp(2rem,5vw,4.5rem);line-height:1;">
-            Cada pieza compite en segundos.
-          </h2>
-        </div>
-
-        <!-- Insight -->
-        <div class="section-row reveal">
-          <span class="section-label">Insight</span>
-          <div class="flex flex-col gap-3">
-            <p class="font-body text-lg leading-relaxed text-on-surface">
-              Si todo se ve igual, nada destaca.<br/>
-              Y si nada destaca, <span class="font-bold italic">nadie elige.</span>
-            </p>
-          </div>
-        </div>
-
-        <!-- Dirección -->
-        <div class="section-row reveal">
-          <span class="section-label">Dirección</span>
-          <p class="font-body text-lg leading-relaxed text-on-surface max-w-xl font-bold">
-            La creatividad debía ser inmediata, clara, difícil de ignorar.
-          </p>
-        </div>
-
-        <!-- Imagen grande insight + texto al lado -->
+        <!-- Texto + Imagen -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center reveal">
-          <div class="project-frame flex items-center justify-center">
-            <img class="lb-img w-full h-auto" src="imagenes/roku-insight.jpg" data-base="imagenes/roku-insight"
-              alt="Pieza Roku" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"
-              style="cursor:zoom-in;"/>
-          </div>
           <div class="flex flex-col gap-4">
             <p class="font-body text-base md:text-lg text-on-surface-variant leading-relaxed">
               En un entorno saturado, lo cercano y inesperado logra algo clave: detener el scroll.
             </p>
           </div>
+          <div class="project-frame flex items-center justify-center">
+            <img class="lb-img w-full h-auto" src="imagenes/roku-insight.jpg" data-base="imagenes/roku-insight"
+              alt="Pieza Roku" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;"/>
+          </div>
         </div>
 
-        <!-- Cierre -->
+        <!-- Título cierre -->
+        <div class="text-center reveal">
+          <h2 class="font-headline font-black tracking-tighter text-on-surface" style="font-size:clamp(2rem,5vw,4.5rem);line-height:1.1;">
+            A veces gana lo que se entiende en segundos.
+          </h2>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ PIEZAS ═════════════════════════════════════════ -->
+    <section class="px-8 md:px-16 py-16 bg-[#FFF1F5]" id="piezas">
+      <div class="max-w-6xl mx-auto flex flex-col gap-10">
+
+        <!-- Texto intro -->
         <div class="text-center reveal">
           <p class="font-headline text-xl md:text-2xl font-black tracking-tighter text-on-surface max-w-3xl mx-auto">
             Y en esta historia no todo lo que funciona es disruptivo.<br/>
@@ -366,69 +352,22 @@
           </p>
         </div>
 
-      </div>
-    </section>
-
-    <!-- ══ PIEZAS ═════════════════════════════════════════ -->
-    <section class="px-8 md:px-16 py-8 bg-[#FFF1F5]" id="piezas">
-      <div class="max-w-6xl mx-auto">
-
-        <!-- CLARIDAD -->
-        <div class="section-row reveal">
-          <span class="section-label">Claridad</span>
-          <div class="project-frame aspect-[16/9] flex items-center justify-center">
-            <img class="lb-img" src="imagenes/roku-claridad.jpg" data-base="imagenes/roku-claridad"
-              alt="Claridad" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
+        <!-- 2 imágenes -->
+        <div class="grid grid-cols-2 gap-4 reveal" style="transition-delay:.1s">
+          <div class="project-frame flex items-center justify-center">
+            <img class="lb-img w-full h-auto" src="imagenes/roku-contenido1.jpg" data-base="imagenes/roku-contenido1"
+              alt="Pieza 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;"/>
           </div>
-        </div>
-
-        <!-- IDENTIFICACIÓN -->
-        <div class="section-row reveal">
-          <span class="section-label">Identificación</span>
-          <div class="project-frame aspect-[16/9] flex items-center justify-center">
-            <img class="lb-img" src="imagenes/roku-identificacion.jpg" data-base="imagenes/roku-identificacion"
-              alt="Identificación" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"/>
-          </div>
-        </div>
-
-        <!-- SORPRESA — 2 imágenes -->
-        <div class="section-row reveal">
-          <span class="section-label">Sorpresa</span>
-          <div class="project-grid-vertical">
-            <div class="project-frame flex items-center justify-center">
-              <img class="lb-img w-full h-auto" src="imagenes/roku-sorpresa1.jpg" data-base="imagenes/roku-sorpresa1"
-                alt="Sorpresa 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"
-                style="cursor:zoom-in;"/>
-            </div>
-            <div class="project-frame flex items-center justify-center">
-              <img class="lb-img w-full h-auto" src="imagenes/roku-sorpresa2.jpg" data-base="imagenes/roku-sorpresa2"
-                alt="Sorpresa 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"
-                style="cursor:zoom-in;"/>
-            </div>
-          </div>
-        </div>
-
-        <!-- CONTENIDO — 2 imágenes -->
-        <div class="section-row reveal">
-          <span class="section-label">Contenido</span>
-          <div class="project-grid-vertical">
-            <div class="project-frame flex items-center justify-center">
-              <img class="lb-img w-full h-auto" src="imagenes/roku-contenido1.jpg" data-base="imagenes/roku-contenido1"
-                alt="Contenido 1" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"
-                style="cursor:zoom-in;"/>
-            </div>
-            <div class="project-frame flex items-center justify-center">
-              <img class="lb-img w-full h-auto" src="imagenes/roku-contenido2.jpg" data-base="imagenes/roku-contenido2"
-                alt="Contenido 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)"
-                style="cursor:zoom-in;"/>
-            </div>
+          <div class="project-frame flex items-center justify-center">
+            <img class="lb-img w-full h-auto" src="imagenes/roku-contenido2.jpg" data-base="imagenes/roku-contenido2"
+              alt="Pieza 2" onclick="openLightbox(this.src)" onerror="tryNextFormat(this)" style="cursor:zoom-in;"/>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- ══ VIDEOS ═════════════════════════════════════════ -->
+        <!-- ══ VIDEOS ═════════════════════════════════════════ -->
     <section class="px-8 md:px-16 py-20 bg-[#FFF8FA]" id="videos">
       <div class="max-w-6xl mx-auto">
 
