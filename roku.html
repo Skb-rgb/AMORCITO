@@ -374,123 +374,96 @@
    
         <!-- ══ VIDEOS ═════════════════════════════════════════ -->
     <section class="px-8 md:px-16 py-20 bg-[#FFF8FA]" id="videos">
-      <div class="max-w-6xl mx-auto">
+  <div class="max-w-6xl mx-auto">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="mb-12">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#FA5E75;display:block;margin-bottom:12px;">Reels</span>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:900;letter-spacing:-.03em;color:#4D4647;">Piezas en movimiento</h2>
+    </div>
 
-          <!-- Video 1 -->
-          <div class="reveal">
-            <p class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-4">Reel 01</p>
-            <!--
-            ════════════════════════════════════════════
-            🎥 VIDEO ROKU 1 — elige una opción:
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
 
-            YouTube:
-            <div class="video-wrapper">
-              <iframe src="https://www.youtube.com/embed/TU_ID?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
-            </div>
-
-            Vimeo:
-            <div class="video-wrapper">
-              <iframe src="https://player.vimeo.com/video/TU_ID" frameborder="0" allowfullscreen></iframe>
-            </div>
-            ════════════════════════════════════════════
-            -->
-            <div class="custom-video" data-video-player>
-              <video preload="metadata" playsinline>
-                <source src="videos/roku-reel-01.mp4" type="video/mp4"/>
-                Tu navegador no soporta video HTML5.
-              </video>
-
-              <div class="video-center-play">
-                <button type="button" class="video-toggle-center" aria-label="Reproducir video">
-                  <span class="material-symbols-outlined" style="font-size:36px;">play_arrow</span>
+      <!-- Video 1 -->
+      <div>
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#9B8082;margin-bottom:12px;">Reel 01</p>
+        <div class="custom-video" data-video-player>
+          <video preload="metadata" playsinline>
+            <source src="videos/roku-reel-01.mp4" type="video/mp4"/>
+          </video>
+          <div class="video-center-play">
+            <button type="button" class="video-toggle-center" aria-label="Reproducir">
+              <span class="material-symbols-outlined" style="font-size:36px;">play_arrow</span>
+            </button>
+          </div>
+          <div class="video-ui">
+            <input class="video-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso"/>
+            <div class="video-controls">
+              <div class="video-controls-left">
+                <button type="button" class="video-btn video-toggle" aria-label="Play / Pause">
+                  <span class="material-symbols-outlined">play_arrow</span>
                 </button>
-              </div>
-
-              <div class="video-ui">
-                <input class="video-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso del video"/>
-
-                <div class="video-controls">
-                  <div class="video-controls-left">
-                    <button type="button" class="video-btn video-toggle" aria-label="Play / Pause">
-                      <span class="material-symbols-outlined">play_arrow</span>
-                    </button>
-
-                    <div class="video-time">
-                      <span class="video-current">00:00</span> / <span class="video-duration">00:00</span>
-                    </div>
-                  </div>
-
-                  <div class="video-controls-right">
-                    <div class="video-volume">
-                      <button type="button" class="video-btn video-mute" aria-label="Mute / Unmute">
-                        <span class="material-symbols-outlined">volume_up</span>
-                      </button>
-                      <input class="video-volume-range" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen"/>
-                    </div>
-
-                    <button type="button" class="video-btn video-fullscreen" aria-label="Pantalla completa">
-                      <span class="material-symbols-outlined">fullscreen</span>
-                    </button>
-                  </div>
+                <div class="video-time">
+                  <span class="video-current">00:00</span> / <span class="video-duration">00:00</span>
                 </div>
+              </div>
+              <div class="video-controls-right">
+                <div class="video-volume">
+                  <button type="button" class="video-btn video-mute" aria-label="Mute">
+                    <span class="material-symbols-outlined">volume_up</span>
+                  </button>
+                  <input class="video-volume-range" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen"/>
+                </div>
+                <button type="button" class="video-btn video-fullscreen" aria-label="Pantalla completa">
+                  <span class="material-symbols-outlined">fullscreen</span>
+                </button>
               </div>
             </div>
           </div>
-
-          <!-- Video 2 -->
-          <div class="reveal" style="transition-delay:.15s">
-            <p class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-outline mb-4">Reel 02</p>
-            <!--
-            ════════════════════════════════════════════
-            🎥 VIDEO ROKU 2 — mismo proceso que Video 1
-            ════════════════════════════════════════════
-            -->
-            <div class="custom-video" data-video-player>
-              <video preload="metadata" playsinline>
-                <source src="videos/roku-reel-02.mp4" type="video/mp4"/>
-                Tu navegador no soporta video HTML5.
-              </video>
-
-              <div class="video-center-play">
-                <button type="button" class="video-toggle-center" aria-label="Reproducir video">
-                  <span class="material-symbols-outlined" style="font-size:36px;">play_arrow</span>
-                </button>
-              </div>
-
-              <div class="video-ui">
-                <input class="video-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso del video"/>
-
-                <div class="video-controls">
-                  <div class="video-controls-left">
-                    <button type="button" class="video-btn video-toggle" aria-label="Play / Pause">
-                      <span class="material-symbols-outlined">play_arrow</span>
-                    </button>
-
-                    <div class="video-time">
-                      <span class="video-current">00:00</span> / <span class="video-duration">00:00</span>
-                    </div>
-                  </div>
-
-                  <div class="video-controls-right">
-                    <div class="video-volume">
-                      <button type="button" class="video-btn video-mute" aria-label="Mute / Unmute">
-                        <span class="material-symbols-outlined">volume_up</span>
-                      </button>
-                      <input class="video-volume-range" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen"/>
-                    </div>
-
-                    <button type="button" class="video-btn video-fullscreen" aria-label="Pantalla completa">
-                      <span class="material-symbols-outlined">fullscreen</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
+      </div>
+
+      <!-- Video 2 -->
+      <div>
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#9B8082;margin-bottom:12px;">Reel 02</p>
+        <div class="custom-video" data-video-player>
+          <video preload="metadata" playsinline>
+            <source src="videos/roku-reel-02.mp4" type="video/mp4"/>
+          </video>
+          <div class="video-center-play">
+            <button type="button" class="video-toggle-center" aria-label="Reproducir">
+              <span class="material-symbols-outlined" style="font-size:36px;">play_arrow</span>
+            </button>
+          </div>
+          <div class="video-ui">
+            <input class="video-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso"/>
+            <div class="video-controls">
+              <div class="video-controls-left">
+                <button type="button" class="video-btn video-toggle" aria-label="Play / Pause">
+                  <span class="material-symbols-outlined">play_arrow</span>
+                </button>
+                <div class="video-time">
+                  <span class="video-current">00:00</span> / <span class="video-duration">00:00</span>
+                </div>
+              </div>
+              <div class="video-controls-right">
+                <div class="video-volume">
+                  <button type="button" class="video-btn video-mute" aria-label="Mute">
+                    <span class="material-symbols-outlined">volume_up</span>
+                  </button>
+                  <input class="video-volume-range" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen"/>
+                </div>
+                <button type="button" class="video-btn video-fullscreen" aria-label="Pantalla completa">
+                  <span class="material-symbols-outlined">fullscreen</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
            <!-- Resultado piezas -->
           <div class="text-center py-12 reveal">
