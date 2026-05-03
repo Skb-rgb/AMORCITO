@@ -47,7 +47,7 @@ Busca `hello@jessicasuarez.com` y reemplázalo por tu email real.
 ### 2. Tus redes sociales (en index.html footer)
 ```html
 <!-- Busca estas líneas y cambia el href: -->
-<a href="https://linkedin.com/in/TU_USUARIO">LINKEDIN</a>
+<a href="https://www.linkedin.com/in/jessica-suárez-carrillo-607973129?utm_source=share_via&utm_content=profile&utm_medium=member_android">LINKEDIN</a>
 ```
 
 ### 3. Tus imágenes
