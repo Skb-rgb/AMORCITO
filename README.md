@@ -47,7 +47,6 @@ Busca `hello@jessicasuarez.com` y reemplázalo por tu email real.
 ### 2. Tus redes sociales (en index.html footer)
 ```html
 <!-- Busca estas líneas y cambia el href: -->
-<a href="https://instagram.com/TU_USUARIO">INSTAGRAM</a>
 <a href="https://linkedin.com/in/TU_USUARIO">LINKEDIN</a>
 ```
 
